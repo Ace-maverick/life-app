@@ -45,10 +45,10 @@ export default function PaymentSuccessScreen() {
   const total = task.basePrice + task.serviceCharge + task.tip;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Success animation */}
-        <LinearGradient colors={['#16A34A', '#22C55E']} style={styles.successBanner}>
+        {/* Success animation — extends behind status bar */}
+        <LinearGradient colors={['#16A34A', '#22C55E']} style={[styles.successBanner, { paddingTop: insets.top + Spacing.xl }]}>
           <Animated.View style={{ transform: [{ scale: scaleAnim }], opacity: opacityAnim }}>
             <View style={styles.checkCircle}>
               <Text style={styles.checkEmoji}>✓</Text>

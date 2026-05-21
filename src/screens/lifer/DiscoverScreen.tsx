@@ -62,9 +62,9 @@ export default function LiferDiscoverScreen() {
   const unread = getUnreadCount();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Green header */}
-      <LinearGradient colors={['#16A34A', '#15803D', '#14532D']} style={styles.header}>
+    <View style={styles.container}>
+      {/* Green header — extends behind status bar */}
+      <LinearGradient colors={['#16A34A', '#15803D', '#14532D']} style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
         <View style={styles.headerRow}>
           <View>
             <Text style={styles.greeting}>Welcome back,</Text>

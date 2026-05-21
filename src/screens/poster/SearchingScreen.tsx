@@ -103,8 +103,8 @@ export default function SearchingScreen() {
   const total = task.basePrice + task.serviceCharge + task.tip;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#1D4ED8', '#1E3A8A']} style={styles.topBar}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#1D4ED8', '#1E3A8A']} style={[styles.topBar, { paddingTop: insets.top + Spacing.md }]}>
         <Text style={styles.topBarTitle}>{task.title}</Text>
         <Text style={styles.topBarSub}>ETB {total}  ·  {task.location.area}</Text>
       </LinearGradient>

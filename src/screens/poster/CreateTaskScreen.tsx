@@ -75,7 +75,7 @@ export default function CreateTaskScreen() {
   const stepLabel = STEPS[step];
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScreenHeader title="Post a Task" subtitle={`Step ${step + 1} of ${STEPS.length}: ${stepLabel}`} onBack={goBack} />
 
       {/* Progress bar */}

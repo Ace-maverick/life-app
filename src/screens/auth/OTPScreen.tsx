@@ -49,8 +49,8 @@ export default function OTPScreen() {
   const maskedPhone = phone.replace(/(\d{4})\d{4}(\d+)/, '$1****$2');
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { marginTop: insets.top }]}>
         <Text style={[styles.backText, { color: cfg.color }]}>← Back</Text>
       </TouchableOpacity>
 

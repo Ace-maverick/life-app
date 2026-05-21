@@ -100,10 +100,10 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header gradient */}
-        <LinearGradient colors={gradientColors} style={styles.header}>
+        {/* Header gradient — extends behind status bar */}
+        <LinearGradient colors={gradientColors} style={[styles.header, { paddingTop: insets.top + Spacing.xl }]}>
           {/* Photo upload */}
           <TouchableOpacity style={styles.avatarWrap} onPress={handlePhotoPress} activeOpacity={0.85}>
             {currentUser.profileImage ? (

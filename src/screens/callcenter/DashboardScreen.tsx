@@ -16,8 +16,8 @@ export default function CallCenterDashScreen() {
   const openDisputes = disputes.filter(d => d.status === 'Open').length;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#4C1D95', '#6D28D9']} style={styles.header}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#4C1D95', '#6D28D9']} style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
         <View style={styles.headerRow}>
           <View>
             <Text style={styles.label}>Support Desk</Text>

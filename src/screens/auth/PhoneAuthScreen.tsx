@@ -50,8 +50,8 @@ export default function PhoneAuthScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={cfg.gradientColors} style={styles.topBar}>
+    <View style={styles.container}>
+      <LinearGradient colors={cfg.gradientColors} style={[styles.topBar, { paddingTop: insets.top + 12 }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>

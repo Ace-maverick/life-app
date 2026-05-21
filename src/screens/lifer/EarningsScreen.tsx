@@ -13,8 +13,8 @@ export default function LiferEarningsScreen() {
   const totalEarned = tasks.reduce((sum, t) => sum + t.basePrice + t.serviceCharge + t.tip, 0);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#16A34A', '#14532D']} style={styles.header}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#16A34A', '#14532D']} style={[styles.header, { paddingTop: insets.top + Spacing.md }]}>
         <Text style={styles.heading}>Earnings</Text>
         <Text style={styles.totalLabel}>Total earned</Text>
         <Text style={styles.totalAmount}>ETB {totalEarned}</Text>

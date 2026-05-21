@@ -12,7 +12,7 @@ export default function AdminPricingScreen() {
   const [expandedCat, setExpandedCat] = useState<string | null>(null);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScreenHeader title="Pricing Catalog" subtitle="Tap category to expand" onBack={() => navigation.goBack()} />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         {CATEGORIES.map(cat => (

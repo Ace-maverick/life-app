@@ -33,8 +33,8 @@ export default function AdminDashboardScreen() {
   const posters = users.filter(u => u.role === 'poster').length;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#1E293B', '#334155']} style={styles.header}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#1E293B', '#334155']} style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
         <View style={styles.headerRow}>
           <View>
             <Text style={styles.greeting}>Admin Console</Text>

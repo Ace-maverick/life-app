@@ -177,9 +177,9 @@ export default function PosterHomeScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Hero gradient header */}
-      <LinearGradient colors={['#1D4ED8', '#2563EB', '#1E3A8A']} style={styles.header}>
+    <View style={styles.container}>
+      {/* Hero gradient header — extends behind status bar */}
+      <LinearGradient colors={['#1D4ED8', '#2563EB', '#1E3A8A']} style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
         <View style={styles.headerRow}>
           <View>
             <Text style={styles.greeting}>{greeting()},</Text>

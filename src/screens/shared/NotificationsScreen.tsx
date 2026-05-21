@@ -131,8 +131,8 @@ export default function NotificationsScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <View style={styles.header}>
+    <View style={styles.container}>
+      <View style={[styles.header, { paddingTop: insets.top + Spacing.md }]}>
         <View>
           <Text style={styles.heading}>Notifications</Text>
           {unread > 0 && <Text style={styles.unreadCount}>{unread} unread</Text>}

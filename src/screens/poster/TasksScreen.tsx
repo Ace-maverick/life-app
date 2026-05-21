@@ -51,8 +51,8 @@ export default function PosterTasksScreen() {
     : allTasks;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <View style={styles.header}>
+    <View style={styles.container}>
+      <View style={[styles.header, { paddingTop: insets.top + Spacing.md }]}>
         <Text style={styles.heading}>My Tasks</Text>
         <Text style={styles.count}>{allTasks.length} total</Text>
       </View>

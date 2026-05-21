@@ -67,8 +67,8 @@ export default function ActiveJobScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#16A34A', '#15803D']} style={styles.header}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#16A34A', '#15803D']} style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>

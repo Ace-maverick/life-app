@@ -75,7 +75,7 @@ export default function AdminVerificationsScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScreenHeader title="Verifications" subtitle={`${pending.length} pending`} onBack={() => navigation.goBack()} />
       <FlatList
         data={[...pending, ...reviewed]}

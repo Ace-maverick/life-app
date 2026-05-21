@@ -14,8 +14,8 @@ export default function WalletScreen() {
   const points = currentUser?.discountPoints ?? 0;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <LinearGradient colors={['#1D4ED8', '#1E3A8A']} style={styles.header}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#1D4ED8', '#1E3A8A']} style={[styles.header, { paddingTop: insets.top + Spacing.md }]}>
         <Text style={styles.heading}>Wallet</Text>
         <View style={styles.pointsCard}>
           <Text style={styles.pointsLabel}>Discount Points</Text>

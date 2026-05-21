@@ -27,7 +27,7 @@ export default function AdminDisputesScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <ScreenHeader
         title="Disputes"
         subtitle={`${disputes.filter(d => d.status === 'Open').length} open`}
