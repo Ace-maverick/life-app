@@ -9,7 +9,7 @@ import Button from '../../components/Button';
 import ScreenHeader from '../../components/ScreenHeader';
 import { CATEGORIES, ServiceCategory, Subcategory, JobType } from '../../data/services';
 import { useApp } from '../../context/AppContext';
-import { Urgency } from '../../data/types';
+import { Urgency, TaskFrequency } from '../../data/types';
 
 const STEPS = ['Category', 'Service', 'Location', 'Review'] as const;
 type Step = typeof STEPS[number];
@@ -29,6 +29,7 @@ export default function CreateTaskScreen() {
   const [selectedSub, setSelectedSub] = useState<Subcategory | null>(null);
   const [selectedJob, setSelectedJob] = useState<JobType | null>(null);
   const [urgency, setUrgency] = useState<Urgency>('Today');
+  const [frequency, setFrequency] = useState<TaskFrequency>('one_time');
   const [city, setCity] = useState('Addis Ababa');
   const [area, setArea] = useState('');
   const [landmark, setLandmark] = useState('');
@@ -66,6 +67,7 @@ export default function CreateTaskScreen() {
       urgency,
       basePrice: selectedJob.basePrice,
       serviceCharge: selectedJob.serviceCharge,
+      frequency,
     });
     navigation.replace('Searching', { taskId: task.id });
   }
@@ -173,6 +175,23 @@ export default function CreateTaskScreen() {
                 </TouchableOpacity>
               ))}
             </View>
+
+            <Text style={[styles.fieldLabel, { marginTop: Spacing.lg }]}>Frequency</Text>
+            <View style={styles.urgencyRow}>
+              {([
+                { key: 'one_time', label: 'One-time', emoji: '1️⃣' },
+                { key: 'daily',    label: 'Daily',    emoji: '📅' },
+                { key: 'weekly',   label: 'Weekly',   emoji: '🗓️' },
+              ] as { key: TaskFrequency; label: string; emoji: string }[]).map(f => (
+                <TouchableOpacity
+                  key={f.key}
+                  style={[styles.urgencyBtn, frequency === f.key && { backgroundColor: Colors.posterPrimary, borderColor: Colors.posterPrimary }]}
+                  onPress={() => setFrequency(f.key)}
+                >
+                  <Text style={[styles.urgencyText, frequency === f.key && { color: Colors.white }]}>{f.emoji} {f.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
         )}
 
@@ -248,6 +267,12 @@ export default function CreateTaskScreen() {
               <View style={styles.reviewRow}>
                 <Text style={styles.reviewLabel}>Urgency</Text>
                 <Text style={styles.reviewValue}>{urgency}</Text>
+              </View>
+              <View style={styles.reviewRow}>
+                <Text style={styles.reviewLabel}>Frequency</Text>
+                <Text style={styles.reviewValue}>
+                  {frequency === 'one_time' ? '1️⃣ One-time' : frequency === 'daily' ? '📅 Daily' : '🗓️ Weekly'}
+                </Text>
               </View>
               {description ? (
                 <View style={styles.reviewRow}>

@@ -1,19 +1,32 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useRef, useState, useCallback } from 'react';
+import {
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import Avatar from '../../components/Avatar';
 import StatusBadge from '../../components/StatusBadge';
+import Button from '../../components/Button';
 import { Task } from '../../data/types';
+import { CATEGORIES, getCategoryById } from '../../data/services';
+
+// ─── Task Card ────────────────────────────────────────────────────────────────
 
 function TaskCard({ task, onPress }: { task: Task; onPress: () => void }) {
-  const { getCategoryById } = require('../../data/services');
-  const cat = require('../../data/services').getCategoryById(task.categoryId);
+  const cat = getCategoryById(task.categoryId);
+  const isFinished = ['Receipt Issued', 'Completed', 'Cancelled', 'Dispute Resolved'].includes(task.status);
+
   return (
-    <TouchableOpacity style={styles.taskCard} onPress={onPress} activeOpacity={0.82}>
+    <TouchableOpacity
+      style={[styles.taskCard, isFinished && styles.taskCardFinished]}
+      onPress={onPress}
+      activeOpacity={0.82}
+    >
       <View style={styles.taskCardRow}>
         <View style={[styles.taskIcon, { backgroundColor: (cat?.color ?? '#1D4ED8') + '18' }]}>
           <Text style={styles.taskEmoji}>{cat?.icon ?? '📋'}</Text>
@@ -24,17 +37,93 @@ function TaskCard({ task, onPress }: { task: Task; onPress: () => void }) {
         </View>
         <View style={styles.taskRight}>
           <Text style={styles.taskPrice}>ETB {task.basePrice + task.serviceCharge + task.tip}</Text>
-          <StatusBadge status={task.status} size="sm" />
+          {isFinished
+            ? <View style={styles.reorderBadge}><Text style={styles.reorderBadgeText}>↩ Reorder</Text></View>
+            : <StatusBadge status={task.status} size="sm" />
+          }
         </View>
       </View>
     </TouchableOpacity>
   );
 }
 
+// ─── Order Again Modal ────────────────────────────────────────────────────────
+
+function OrderAgainModal({
+  task,
+  visible,
+  onClose,
+  onReorderSame,
+  onEditAndPost,
+}: {
+  task: Task | null;
+  visible: boolean;
+  onClose: () => void;
+  onReorderSame: () => void;
+  onEditAndPost: () => void;
+}) {
+  if (!task) return null;
+  const cat = getCategoryById(task.categoryId);
+
+  return (
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={onClose}>
+        <TouchableOpacity activeOpacity={1} style={styles.modalSheet}>
+          {/* Handle bar */}
+          <View style={styles.modalHandle} />
+
+          <View style={styles.modalTaskRow}>
+            <View style={[styles.modalTaskIcon, { backgroundColor: (cat?.color ?? '#1D4ED8') + '18' }]}>
+              <Text style={{ fontSize: 24 }}>{cat?.icon ?? '📋'}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.modalTitle}>Order Again?</Text>
+              <Text style={styles.modalSub} numberOfLines={2}>{task.title}</Text>
+              <Text style={styles.modalPrice}>ETB {task.basePrice + task.serviceCharge}</Text>
+            </View>
+          </View>
+
+          <View style={styles.modalDivider} />
+
+          <Button
+            label="⚡  Reorder Same — Instant"
+            onPress={onReorderSame}
+            fullWidth
+            style={styles.modalBtn}
+          />
+          <Button
+            label="✏️  Edit & Post"
+            onPress={onEditAndPost}
+            variant="outline"
+            fullWidth
+            style={styles.modalBtn}
+          />
+          <TouchableOpacity onPress={onClose} style={styles.modalCancel}>
+            <Text style={styles.modalCancelText}>Cancel</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </TouchableOpacity>
+    </Modal>
+  );
+}
+
+// ─── Main Screen ──────────────────────────────────────────────────────────────
+
 export default function PosterHomeScreen() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
-  const { currentUser, getMyTasks, getUnreadCount } = useApp();
+  const { currentUser, getMyTasks, getUnreadCount, createTask } = useApp();
+  const scrollRef = useRef<ScrollView>(null);
+
+  const [orderAgainTask, setOrderAgainTask] = useState<Task | null>(null);
+  const [showOrderAgain, setShowOrderAgain] = useState(false);
+
+  // Reset scroll to top whenever this tab comes back into focus
+  useFocusEffect(
+    useCallback(() => {
+      scrollRef.current?.scrollTo({ y: 0, animated: false });
+    }, [])
+  );
 
   const tasks = getMyTasks();
   const activeTasks = tasks.filter(t => ['Open', 'Assigned', 'In Progress', 'Invoice Sent'].includes(t.status));
@@ -47,6 +136,45 @@ export default function PosterHomeScreen() {
     if (h < 17) return 'Good afternoon';
     return 'Good evening';
   };
+
+  function handleTaskPress(task: Task) {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    const isFinished = ['Receipt Issued', 'Completed', 'Cancelled', 'Dispute Resolved'].includes(task.status);
+    if (isFinished) {
+      setOrderAgainTask(task);
+      setShowOrderAgain(true);
+    } else if (task.status === 'Invoice Sent') {
+      navigation.navigate('Invoice', { taskId: task.id });
+    } else {
+      navigation.navigate('PosterTaskDetail', { taskId: task.id });
+    }
+  }
+
+  function handleReorderSame() {
+    setShowOrderAgain(false);
+    if (!orderAgainTask || !currentUser) return;
+    const newTask = createTask({
+      posterId: currentUser.id,
+      categoryId: orderAgainTask.categoryId,
+      subcategoryId: orderAgainTask.subcategoryId,
+      jobTypeId: orderAgainTask.jobTypeId,
+      title: orderAgainTask.title,
+      description: orderAgainTask.description,
+      location: orderAgainTask.location,
+      urgency: orderAgainTask.urgency,
+      basePrice: orderAgainTask.basePrice,
+      serviceCharge: orderAgainTask.serviceCharge,
+    });
+    navigation.navigate('Searching', { taskId: newTask.id });
+  }
+
+  function handleEditAndPost() {
+    setShowOrderAgain(false);
+    if (!orderAgainTask) return;
+    navigation.navigate('CreateTask', {
+      preselectedCategory: orderAgainTask.categoryId,
+    });
+  }
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -92,7 +220,12 @@ export default function PosterHomeScreen() {
         </View>
       </LinearGradient>
 
-      <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        ref={scrollRef}
+        style={styles.body}
+        contentContainerStyle={styles.bodyContent}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Post task CTA */}
         <TouchableOpacity
           style={styles.ctaBtn}
@@ -108,23 +241,42 @@ export default function PosterHomeScreen() {
           </LinearGradient>
         </TouchableOpacity>
 
-        {/* Quick categories */}
+        {/* Quick categories with swipe indicator */}
         <Text style={styles.sectionTitle}>Quick services</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.quickRow}>
-          {require('../../data/services').CATEGORIES.map((cat: any) => (
-            <TouchableOpacity
-              key={cat.id}
-              style={styles.quickCat}
-              onPress={() => navigation.navigate('CreateTask', { preselectedCategory: cat.id })}
-              activeOpacity={0.8}
-            >
-              <View style={[styles.quickIcon, { backgroundColor: cat.color + '18' }]}>
-                <Text style={{ fontSize: 22 }}>{cat.icon}</Text>
-              </View>
-              <Text style={styles.quickLabel} numberOfLines={2}>{cat.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <View style={styles.quickRowWrapper}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.quickRow}
+            contentContainerStyle={{ paddingRight: 32 }}
+          >
+            {CATEGORIES.map((cat: any) => (
+              <TouchableOpacity
+                key={cat.id}
+                style={styles.quickCat}
+                onPress={() => navigation.navigate('CreateTask', { preselectedCategory: cat.id })}
+                activeOpacity={0.8}
+              >
+                <View style={[styles.quickIcon, { backgroundColor: cat.color + '18' }]}>
+                  <Text style={{ fontSize: 22 }}>{cat.icon}</Text>
+                </View>
+                <Text style={styles.quickLabel} numberOfLines={2}>{cat.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+          {/* Right-edge fade + swipe hint */}
+          <View style={styles.quickFadeEdge} pointerEvents="none">
+            <LinearGradient
+              colors={['rgba(248,250,252,0)', 'rgba(248,250,252,0.95)']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{ flex: 1, borderRadius: 4 }}
+            />
+          </View>
+          <View style={styles.quickSwipeHint} pointerEvents="none">
+            <Text style={styles.quickSwipeText}>›</Text>
+          </View>
+        </View>
 
         {/* Recent tasks */}
         <View style={styles.sectionHeader}>
@@ -147,17 +299,20 @@ export default function PosterHomeScreen() {
             <TaskCard
               key={task.id}
               task={task}
-              onPress={() => {
-                if (task.status === 'Invoice Sent') {
-                  navigation.navigate('Invoice', { taskId: task.id });
-                } else {
-                  navigation.navigate('PosterTaskDetail', { taskId: task.id });
-                }
-              }}
+              onPress={() => handleTaskPress(task)}
             />
           ))
         )}
       </ScrollView>
+
+      {/* Order Again Modal */}
+      <OrderAgainModal
+        task={orderAgainTask}
+        visible={showOrderAgain}
+        onClose={() => setShowOrderAgain(false)}
+        onReorderSame={handleReorderSame}
+        onEditAndPost={handleEditAndPost}
+      />
     </View>
   );
 }
@@ -202,10 +357,31 @@ const styles = StyleSheet.create({
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Spacing.md, marginBottom: Spacing.sm },
   sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
   seeAll: { fontSize: FontSize.sm, color: Colors.posterPrimary, fontWeight: '600' },
-  quickRow: { marginHorizontal: -Spacing.md, paddingHorizontal: Spacing.md, marginBottom: Spacing.sm },
+  // Quick services
+  quickRowWrapper: { position: 'relative', marginHorizontal: -Spacing.md, marginBottom: Spacing.sm },
+  quickRow: { paddingHorizontal: Spacing.md },
+  quickFadeEdge: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    width: 48,
+    pointerEvents: 'none',
+  },
+  quickSwipeHint: {
+    position: 'absolute',
+    right: 4,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 20,
+  },
+  quickSwipeText: { fontSize: 18, color: Colors.gray400, fontWeight: '700' },
   quickCat: { alignItems: 'center', marginRight: Spacing.md, width: 72 },
   quickIcon: { width: 56, height: 56, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
   quickLabel: { fontSize: FontSize.xs, color: Colors.textSecondary, textAlign: 'center', lineHeight: 14 },
+  // Task card
   taskCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.lg,
@@ -215,6 +391,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
     ...Shadow.sm,
   },
+  taskCardFinished: { opacity: 0.82 },
   taskCardRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   taskIcon: { width: 44, height: 44, borderRadius: Radius.md, alignItems: 'center', justifyContent: 'center' },
   taskEmoji: { fontSize: 20 },
@@ -223,8 +400,56 @@ const styles = StyleSheet.create({
   taskLocation: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
   taskRight: { alignItems: 'flex-end', gap: 5 },
   taskPrice: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.posterPrimary },
+  reorderBadge: {
+    backgroundColor: Colors.posterLight,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: Radius.full,
+  },
+  reorderBadgeText: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.posterPrimary },
   emptyState: { alignItems: 'center', paddingVertical: Spacing.xxl },
   emptyEmoji: { fontSize: 48, marginBottom: Spacing.md },
   emptyTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
   emptySub: { fontSize: FontSize.base, color: Colors.textMuted, marginTop: 6, textAlign: 'center' },
+  // Order Again Modal
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'flex-end',
+  },
+  modalSheet: {
+    backgroundColor: Colors.white,
+    borderTopLeftRadius: Radius.xxl,
+    borderTopRightRadius: Radius.xxl,
+    padding: Spacing.lg,
+    paddingBottom: Spacing.xl,
+  },
+  modalHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: Colors.gray200,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: Spacing.lg,
+  },
+  modalTaskRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    marginBottom: Spacing.md,
+  },
+  modalTaskIcon: {
+    width: 52,
+    height: 52,
+    borderRadius: Radius.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalTitle: { fontSize: FontSize.lg, fontWeight: '800', color: Colors.textPrimary },
+  modalSub: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 2 },
+  modalPrice: { fontSize: FontSize.base, fontWeight: '700', color: Colors.posterPrimary, marginTop: 4 },
+  modalDivider: { height: 1, backgroundColor: Colors.border, marginBottom: Spacing.md },
+  modalBtn: { marginBottom: Spacing.sm },
+  modalCancel: { alignItems: 'center', paddingVertical: Spacing.sm },
+  modalCancelText: { fontSize: FontSize.base, color: Colors.textMuted, fontWeight: '600' },
 });

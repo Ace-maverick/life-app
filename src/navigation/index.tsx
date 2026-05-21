@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '../theme';
 import { useApp } from '../context/AppContext';
 
@@ -87,6 +88,7 @@ function PosterHomeStack() {
 
 function PosterApp() {
   const { getUnreadCount } = useApp();
+  const insets = useSafeAreaInsets();
   const unread = getUnreadCount();
   return (
     <Tab.Navigator
@@ -96,9 +98,9 @@ function PosterApp() {
           backgroundColor: Colors.white,
           borderTopColor: Colors.border,
           borderTopWidth: 1,
-          paddingBottom: 6,
+          paddingBottom: (insets.bottom || 0) + 6,
           paddingTop: 6,
-          height: 62,
+          height: 62 + (insets.bottom || 0),
         },
         tabBarActiveTintColor: Colors.posterPrimary,
         tabBarInactiveTintColor: Colors.gray400,
@@ -176,6 +178,7 @@ function LiferDiscoverStack() {
 
 function LiferApp() {
   const { getUnreadCount } = useApp();
+  const insets = useSafeAreaInsets();
   const unread = getUnreadCount();
   return (
     <Tab.Navigator
@@ -185,9 +188,9 @@ function LiferApp() {
           backgroundColor: Colors.white,
           borderTopColor: Colors.border,
           borderTopWidth: 1,
-          paddingBottom: 6,
+          paddingBottom: (insets.bottom || 0) + 6,
           paddingTop: 6,
-          height: 62,
+          height: 62 + (insets.bottom || 0),
         },
         tabBarActiveTintColor: Colors.liferPrimary,
         tabBarInactiveTintColor: Colors.gray400,

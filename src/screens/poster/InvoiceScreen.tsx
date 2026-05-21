@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 import { useApp } from '../../context/AppContext';
 import { PaymentMethod } from '../../data/types';
+import { playPaymentFeedback } from '../../utils/sounds';
 
 const PAYMENT_METHODS: Array<{ id: PaymentMethod; label: string; emoji: string; description: string }> = [
   { id: 'telebirr', label: 'Telebirr', emoji: '📱', description: 'Pay with Telebirr mobile wallet' },
@@ -46,6 +47,7 @@ export default function InvoiceScreen() {
             setLoading(true);
             setTimeout(() => {
               payTask(taskId, selectedMethod);
+              playPaymentFeedback();
               setLoading(false);
               navigation.replace('PaymentSuccess', { taskId });
             }, 1500);

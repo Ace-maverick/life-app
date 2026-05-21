@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
+import {
+  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  TextInput, Alert, Switch, Image,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
+import * as Haptics from 'expo-haptics';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
@@ -15,6 +20,11 @@ export default function ProfileScreen() {
   const [city, setCity] = useState(currentUser?.city ?? '');
   const [area, setArea] = useState(currentUser?.area ?? '');
 
+  // Notification preferences (local state — persisted via updateProfile in real app)
+  const [notifLockScreen, setNotifLockScreen] = useState(true);
+  const [notifPush, setNotifPush] = useState(true);
+  const [notifSystem, setNotifSystem] = useState(false);
+
   const isLifer = currentUser?.role === 'lifer';
   const isPoster = currentUser?.role === 'poster';
   const accentColor = isLifer ? Colors.liferPrimary : Colors.posterPrimary;
@@ -23,6 +33,49 @@ export default function ProfileScreen() {
     : currentUser?.role === 'admin'
       ? ['#334155', '#64748B']
       : ['#1D4ED8', '#1E3A8A'];
+
+  async function handlePickPhoto() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission needed', 'Allow access to your photos to set a profile picture.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+    if (!result.canceled && result.assets[0]) {
+      updateProfile({ profileImage: result.assets[0].uri });
+    }
+  }
+
+  async function handleTakePhoto() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission needed', 'Allow camera access to take a profile photo.');
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+    if (!result.canceled && result.assets[0]) {
+      updateProfile({ profileImage: result.assets[0].uri });
+    }
+  }
+
+  function handlePhotoPress() {
+    Alert.alert('Profile Photo', 'Choose an option', [
+      { text: 'Take Photo', onPress: handleTakePhoto },
+      { text: 'Choose from Library', onPress: handlePickPhoto },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
+  }
 
   function handleSave() {
     updateProfile({ name, city, area });
@@ -49,8 +102,20 @@ export default function ProfileScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header gradient */}
         <LinearGradient colors={gradientColors} style={styles.header}>
-          <Avatar name={currentUser.name} size={80} color="rgba(255,255,255,0.3)" />
+          {/* Photo upload */}
+          <TouchableOpacity style={styles.avatarWrap} onPress={handlePhotoPress} activeOpacity={0.85}>
+            {currentUser.profileImage ? (
+              <Image source={{ uri: currentUser.profileImage }} style={styles.avatarPhoto} />
+            ) : (
+              <Avatar name={currentUser.name} size={80} color="rgba(255,255,255,0.3)" />
+            )}
+            <View style={styles.cameraBtn}>
+              <Text style={{ fontSize: 13 }}>📷</Text>
+            </View>
+          </TouchableOpacity>
+
           <Text style={styles.name}>{currentUser.name}</Text>
           <View style={styles.rolePill}>
             <Text style={styles.roleText}>{roleBadge[currentUser.role] ?? currentUser.role}</Text>
@@ -75,7 +140,7 @@ export default function ProfileScreen() {
             </View>
           )}
 
-          {/* Info */}
+          {/* Account Info */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Account Info</Text>
@@ -127,6 +192,46 @@ export default function ProfileScreen() {
             </View>
           )}
 
+          {/* Notification Preferences */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Notifications</Text>
+
+            <ToggleRow
+              label="Lock Screen Notifications"
+              description="Show alerts on your lock screen"
+              emoji="🔒"
+              value={notifLockScreen}
+              onToggle={v => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+                setNotifLockScreen(v);
+              }}
+              accentColor={accentColor}
+            />
+            <ToggleRow
+              label="Push Notifications"
+              description="Receive real-time app alerts"
+              emoji="🔔"
+              value={notifPush}
+              onToggle={v => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+                setNotifPush(v);
+              }}
+              accentColor={accentColor}
+            />
+            <ToggleRow
+              label="System Notifications"
+              description="Allow system-level notifications"
+              emoji="⚙️"
+              value={notifSystem}
+              onToggle={v => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+                setNotifSystem(v);
+              }}
+              accentColor={accentColor}
+              isLast
+            />
+          </View>
+
           {/* Logout */}
           <Button
             label="Log out"
@@ -142,6 +247,8 @@ export default function ProfileScreen() {
   );
 }
 
+// ─── Info Row ─────────────────────────────────────────────────────────────────
+
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <View style={styles.infoRow}>
@@ -151,9 +258,57 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   );
 }
 
+// ─── Toggle Row ───────────────────────────────────────────────────────────────
+
+function ToggleRow({
+  label, description, emoji, value, onToggle, accentColor, isLast = false,
+}: {
+  label: string;
+  description: string;
+  emoji: string;
+  value: boolean;
+  onToggle: (v: boolean) => void;
+  accentColor: string;
+  isLast?: boolean;
+}) {
+  return (
+    <View style={[styles.toggleRow, !isLast && styles.toggleRowBorder]}>
+      <View style={[styles.toggleIcon, { backgroundColor: accentColor + '15' }]}>
+        <Text style={{ fontSize: 16 }}>{emoji}</Text>
+      </View>
+      <View style={styles.toggleInfo}>
+        <Text style={styles.toggleLabel}>{label}</Text>
+        <Text style={styles.toggleDesc}>{description}</Text>
+      </View>
+      <Switch
+        value={value}
+        onValueChange={onToggle}
+        trackColor={{ false: Colors.gray200, true: accentColor + '60' }}
+        thumbColor={value ? accentColor : Colors.gray400}
+      />
+    </View>
+  );
+}
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { alignItems: 'center', padding: Spacing.xl, paddingBottom: Spacing.xxl, gap: 8 },
+  avatarWrap: { position: 'relative' },
+  avatarPhoto: { width: 80, height: 80, borderRadius: 40, borderWidth: 2, borderColor: 'rgba(255,255,255,0.4)' },
+  cameraBtn: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...Shadow.sm,
+  },
   name: { color: Colors.white, fontSize: FontSize.xxl, fontWeight: '800' },
   rolePill: { backgroundColor: 'rgba(255,255,255,0.2)', paddingHorizontal: 14, paddingVertical: 5, borderRadius: Radius.full },
   roleText: { color: Colors.white, fontSize: FontSize.sm, fontWeight: '600' },
@@ -176,4 +331,11 @@ const styles = StyleSheet.create({
   tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   tag: { backgroundColor: Colors.liferLight, paddingHorizontal: 12, paddingVertical: 6, borderRadius: Radius.full },
   tagText: { fontSize: FontSize.sm, fontWeight: '600', textTransform: 'capitalize' },
+  // Notification toggles
+  toggleRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12 },
+  toggleRowBorder: { borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
+  toggleIcon: { width: 36, height: 36, borderRadius: Radius.md, alignItems: 'center', justifyContent: 'center' },
+  toggleInfo: { flex: 1 },
+  toggleLabel: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  toggleDesc: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
 });

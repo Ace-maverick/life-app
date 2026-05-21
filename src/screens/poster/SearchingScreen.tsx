@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 import { useApp } from '../../context/AppContext';
 import { getCategoryById } from '../../data/services';
+import { playMatchFeedback } from '../../utils/sounds';
 
 const TIP_OPTIONS = [50, 100, 150, 200];
 
@@ -61,6 +62,7 @@ export default function SearchingScreen() {
           setAutoAccepted(true);
           // Demo: auto-accept with first lifer
           acceptTask(taskId);
+          playMatchFeedback();
         }
         return next;
       });

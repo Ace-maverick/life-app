@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import * as Haptics from 'expo-haptics';
 import { Colors, Radius, FontSize, Spacing } from '../theme';
 
 interface ButtonProps {
@@ -55,10 +56,15 @@ export default function Button({
     ...textStyle,
   };
 
+  function handlePress() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    onPress();
+  }
+
   return (
     <TouchableOpacity
       style={containerStyle}
-      onPress={onPress}
+      onPress={handlePress}
       disabled={disabled || loading}
       activeOpacity={0.75}
     >

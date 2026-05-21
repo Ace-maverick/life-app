@@ -16,6 +16,8 @@ export type TaskStatus =
 
 export type Urgency = 'Today' | 'Scheduled' | 'Urgent';
 
+export type TaskFrequency = 'one_time' | 'daily' | 'weekly';
+
 export type PaymentMethod = 'telebirr' | 'cbe_birr' | 'bank';
 
 export interface User {
@@ -64,6 +66,7 @@ export interface Task {
   description?: string;
   location: TaskLocation;
   urgency: Urgency;
+  frequency?: TaskFrequency;
   basePrice: number;
   serviceCharge: number;
   tip: number;
