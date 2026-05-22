@@ -1,13 +1,13 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
-import ScreenHeader from '../../components/ScreenHeader';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
 import StatusBadge from '../../components/StatusBadge';
+import LiveTrackingMap from '../../components/LiveTrackingMap';
 import { useApp } from '../../context/AppContext';
 import { getCategoryById } from '../../data/services';
 
@@ -22,7 +22,7 @@ export default function ActiveJobScreen() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
   const { taskId } = route.params;
-  const { getTaskById, getUserById, startTask, completeTask, rateTask } = useApp();
+  const { getTaskById, getUserById, startTask, completeTask, rateTask, currentUser } = useApp();
 
   const [elapsed, setElapsed] = useState(0);
   const [rating, setRating] = useState(0);
@@ -43,6 +43,7 @@ export default function ActiveJobScreen() {
   const total = task.basePrice + task.serviceCharge + task.tip;
   const isPaid = ['Paid', 'Receipt Issued'].includes(task.status);
   const isCompleted = ['Completed', 'Invoice Sent', 'Paid', 'Receipt Issued'].includes(task.status);
+  const showMap = ['Assigned', 'In Progress'].includes(task.status);
 
   function handleStart() {
     Alert.alert('Start task?', 'Confirm you have arrived and are starting the task.', [
@@ -93,6 +94,21 @@ export default function ActiveJobScreen() {
           </View>
         </View>
 
+        {/* Navigation map — shown when Assigned or In Progress */}
+        {showMap && (
+          <View style={styles.mapCard}>
+            <Text style={styles.sectionLabel}>
+              {task.status === 'Assigned' ? 'Navigate to task' : 'You are on-site'}
+            </Text>
+            <LiveTrackingMap
+              taskArea={task.location.area}
+              liferArea={currentUser?.serviceArea ?? currentUser?.area}
+              taskStatus={task.status}
+              style={styles.mapEmbed}
+            />
+          </View>
+        )}
+
         {/* Timer (only when in progress) */}
         {task.status === 'In Progress' && (
           <View style={styles.timerCard}>
@@ -118,12 +134,14 @@ export default function ActiveJobScreen() {
           </View>
         )}
 
-        {/* Location */}
-        <View style={styles.locationCard}>
-          <Text style={styles.sectionLabel}>Task location</Text>
-          <Text style={styles.locationMain}>{task.location.area}, {task.location.city}</Text>
-          {task.location.landmark ? <Text style={styles.locationSub}>{task.location.landmark}</Text> : null}
-        </View>
+        {/* Location (text fallback for non-active states) */}
+        {!showMap && (
+          <View style={styles.locationCard}>
+            <Text style={styles.sectionLabel}>Task location</Text>
+            <Text style={styles.locationMain}>{task.location.area}, {task.location.city}</Text>
+            {task.location.landmark ? <Text style={styles.locationSub}>{task.location.landmark}</Text> : null}
+          </View>
+        )}
 
         {/* Payment awaiting */}
         {task.status === 'Invoice Sent' && (
@@ -220,6 +238,16 @@ const styles = StyleSheet.create({
   summaryTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
   summaryLocation: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 4 },
   summaryEarning: { ...TypeScale.titleMd, fontWeight: '800', color: Colors.liferPrimary },
+  mapCard: {
+    backgroundColor: Colors.white,
+    borderRadius: Radius.xl,
+    padding: Spacing.md,
+    borderWidth: 1,
+    borderColor: Colors.liferLight,
+    marginBottom: Spacing.md,
+    ...Shadow.sm,
+  },
+  mapEmbed: { height: 200 },
   timerCard: {
     backgroundColor: Colors.liferLight,
     borderRadius: Radius.xl,

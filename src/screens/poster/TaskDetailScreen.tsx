@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import ScreenHeader from '../../components/ScreenHeader';
 import StatusBadge from '../../components/StatusBadge';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
+import LiveTrackingMap from '../../components/LiveTrackingMap';
 import { useApp } from '../../context/AppContext';
 import { getCategoryById } from '../../data/services';
 
@@ -35,6 +36,7 @@ export default function PosterTaskDetailScreen() {
   const cat = getCategoryById(task.categoryId);
   const currentStepIdx = STATUS_ORDER.indexOf(task.status);
   const total = task.basePrice + task.serviceCharge + task.tip;
+  const showMap = ['Assigned', 'In Progress'].includes(task.status);
 
   function handleCancel() {
     Alert.alert('Cancel task?', 'Are you sure you want to cancel this task?', [
@@ -84,6 +86,16 @@ export default function PosterTaskDetailScreen() {
                 <Text style={{ fontSize: 22 }}>📞</Text>
               </TouchableOpacity>
             </View>
+
+            {/* Live tracking map — only when Assigned or In Progress */}
+            {showMap && (
+              <LiveTrackingMap
+                taskArea={task.location.area}
+                liferArea={lifer.serviceArea}
+                taskStatus={task.status}
+                style={styles.mapEmbed}
+              />
+            )}
           </View>
         )}
 
@@ -206,6 +218,7 @@ const styles = StyleSheet.create({
   liferRating: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
   liferBadge: { ...TypeScale.caption, color: Colors.liferPrimary, fontWeight: '600', marginTop: 3 },
   callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.liferLight, alignItems: 'center', justifyContent: 'center' },
+  mapEmbed: { marginTop: Spacing.md, height: 210 },
   section: { marginBottom: Spacing.md },
   sectionLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
   timelineRow: { flexDirection: 'row', minHeight: 48 },
