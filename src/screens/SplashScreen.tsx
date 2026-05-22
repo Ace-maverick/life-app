@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, FontSize } from '../theme';
+import { Colors, TypeScale } from '../theme';
 
 export default function SplashScreen() {
   const opacity = new Animated.Value(0);
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   tagline: {
     color: 'rgba(255,255,255,0.55)',
-    fontSize: FontSize.sm,
+    ...TypeScale.body,
     fontWeight: '600',
     letterSpacing: 2.5,
     marginTop: 8,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: 'rgba(255,255,255,0.35)',
-    fontSize: FontSize.sm,
+    ...TypeScale.body,
     letterSpacing: 1,
   },
 });

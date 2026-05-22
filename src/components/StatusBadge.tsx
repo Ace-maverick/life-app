@@ -1,6 +1,6 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Radius, FontSize } from '../theme';
+import { Colors, Radius, TypeScale } from '../theme';
 import { TaskStatus } from '../data/types';
 
 const STATUS_CONFIG: Record<TaskStatus, { label: string; bg: string; text: string }> = {
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   sm: { paddingHorizontal: 8, paddingVertical: 3 },
-  text: { fontSize: FontSize.sm, fontWeight: '600' },
-  smText: { fontSize: FontSize.xs },
+  text: { ...TypeScale.body, fontWeight: '600' },
+  smText: { ...TypeScale.caption },
 });

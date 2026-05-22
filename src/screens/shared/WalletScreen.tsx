@@ -1,8 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 
 export default function WalletScreen() {
@@ -69,30 +69,30 @@ export default function WalletScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.xl, paddingTop: Spacing.md },
-  heading: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.md },
+  heading: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.md },
   pointsCard: {
     backgroundColor: 'rgba(255,255,255,0.12)',
     borderRadius: Radius.xl,
     padding: Spacing.lg,
     alignItems: 'center',
   },
-  pointsLabel: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
-  pointsValue: { color: Colors.white, fontSize: FontSize.xxxl, fontWeight: '800', marginVertical: 4 },
-  pointsSub: { color: 'rgba(255,255,255,0.55)', fontSize: FontSize.xs },
+  pointsLabel: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
+  pointsValue: { color: Colors.white, ...TypeScale.display, fontWeight: '800', marginVertical: 4 },
+  pointsSub: { color: 'rgba(255,255,255,0.55)', ...TypeScale.caption },
   content: { padding: Spacing.md, gap: Spacing.md },
   statsRow: { flexDirection: 'row', gap: Spacing.md },
   statCard: { flex: 1, backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, alignItems: 'center', borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
-  statValue: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.posterPrimary },
-  statLabel: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 4 },
-  sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
+  statValue: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.posterPrimary },
+  statLabel: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 4 },
+  sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
   methodCard: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
   methodEmoji: { fontSize: 26 },
-  methodName: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  methodSub: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
+  methodName: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  methodSub: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
   loyaltyCard: { backgroundColor: Colors.posterLight, borderRadius: Radius.xl, padding: Spacing.lg, borderWidth: 1, borderColor: Colors.posterPrimary + '30' },
-  loyaltyTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.posterPrimary, marginBottom: 6 },
-  loyaltySub: { fontSize: FontSize.sm, color: Colors.textSecondary, lineHeight: 20, marginBottom: Spacing.md },
+  loyaltyTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.posterPrimary, marginBottom: 6 },
+  loyaltySub: { ...TypeScale.body, color: Colors.textSecondary, lineHeight: 20, marginBottom: Spacing.md },
   progressBar: { height: 8, backgroundColor: Colors.posterPrimary + '25', borderRadius: Radius.full, overflow: 'hidden' },
   progressFill: { height: 8, backgroundColor: Colors.posterPrimary, borderRadius: Radius.full },
-  progressText: { fontSize: FontSize.xs, color: Colors.posterPrimary, fontWeight: '600', marginTop: 6 },
+  progressText: { ...TypeScale.caption, color: Colors.posterPrimary, fontWeight: '600', marginTop: 6 },
 });

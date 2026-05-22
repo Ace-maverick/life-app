@@ -1,8 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import Avatar from '../../components/Avatar';
 import { useApp } from '../../context/AppContext';
@@ -99,18 +99,18 @@ const styles = StyleSheet.create({
   card: { backgroundColor: Colors.white, borderRadius: Radius.xl, padding: Spacing.md, borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
   cardHeader: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: Spacing.md },
   cardInfo: { flex: 1 },
-  cardName: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary },
-  cardPhone: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 2 },
+  cardName: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary },
+  cardPhone: { ...TypeScale.body, color: Colors.textMuted, marginTop: 2 },
   statusBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: Radius.full },
-  statusText: { fontSize: FontSize.xs, fontWeight: '600' },
+  statusText: { ...TypeScale.caption, fontWeight: '600' },
   cardDetails: { gap: 4, marginBottom: Spacing.md },
-  detail: { fontSize: FontSize.sm, color: Colors.textSecondary },
+  detail: { ...TypeScale.body, color: Colors.textSecondary },
   actions: { flexDirection: 'row', gap: Spacing.sm, borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: Spacing.md },
   rejectBtn: { flex: 1, padding: 10, borderRadius: Radius.lg, borderWidth: 1.5, borderColor: Colors.error, alignItems: 'center' },
-  rejectText: { color: Colors.error, fontWeight: '700', fontSize: FontSize.sm },
+  rejectText: { color: Colors.error, fontWeight: '700', ...TypeScale.body },
   approveBtn: { flex: 1, padding: 10, borderRadius: Radius.lg, backgroundColor: Colors.liferPrimary, alignItems: 'center' },
-  approveText: { color: Colors.white, fontWeight: '700', fontSize: FontSize.sm },
+  approveText: { color: Colors.white, fontWeight: '700', ...TypeScale.body },
   empty: { alignItems: 'center', paddingVertical: Spacing.xxl },
   emptyEmoji: { fontSize: 40, marginBottom: Spacing.md },
-  emptyTitle: { fontSize: FontSize.lg, fontWeight: '600', color: Colors.textMuted },
+  emptyTitle: { ...TypeScale.titleMd, fontWeight: '600', color: Colors.textMuted },
 });

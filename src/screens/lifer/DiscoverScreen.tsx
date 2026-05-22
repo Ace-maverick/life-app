@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Avatar from '../../components/Avatar';
 import StatusBadge from '../../components/StatusBadge';
 import { useApp } from '../../context/AppContext';
@@ -157,21 +157,21 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.lg },
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.md },
-  greeting: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm },
-  userName: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800', marginTop: 2 },
+  greeting: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body },
+  userName: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800', marginTop: 2 },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   bell: { position: 'relative', padding: 4 },
   bellBadge: { position: 'absolute', top: 0, right: 0, width: 16, height: 16, borderRadius: 8, backgroundColor: Colors.error, alignItems: 'center', justifyContent: 'center' },
   bellBadgeText: { color: Colors.white, fontSize: 9, fontWeight: '700' },
   statusPill: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 14, paddingVertical: 8, borderRadius: Radius.full, alignSelf: 'flex-start' },
   dot: { width: 8, height: 8, borderRadius: 4 },
-  statusText: { color: Colors.white, fontSize: FontSize.sm, fontWeight: '600' },
+  statusText: { color: Colors.white, ...TypeScale.body, fontWeight: '600' },
   activeJobBanner: { marginHorizontal: Spacing.md, marginTop: Spacing.md, borderRadius: Radius.xl, overflow: 'hidden', ...Shadow.md },
   activeJobBannerInner: { flexDirection: 'row', alignItems: 'center', padding: Spacing.md, gap: 10 },
   activeJobEmoji: { fontSize: 22 },
   activeJobInfo: { flex: 1 },
-  activeJobLabel: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.xs, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
-  activeJobTitle: { color: Colors.white, fontSize: FontSize.base, fontWeight: '700', marginTop: 2 },
+  activeJobLabel: { color: 'rgba(255,255,255,0.7)', ...TypeScale.caption, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
+  activeJobTitle: { color: Colors.white, ...TypeScale.bodyLg, fontWeight: '700', marginTop: 2 },
   activeJobArrow: { color: Colors.white, fontSize: 22 },
   verifyBanner: {
     flexDirection: 'row',
@@ -186,12 +186,12 @@ const styles = StyleSheet.create({
   },
   verifyEmoji: { fontSize: 24 },
   verifyInfo: { flex: 1 },
-  verifyTitle: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary },
-  verifySub: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
+  verifyTitle: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary },
+  verifySub: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
   verifyArrow: { fontSize: 22, color: Colors.warning },
   listHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: Spacing.md, paddingTop: Spacing.md, paddingBottom: Spacing.sm },
-  listTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  listCount: { fontSize: FontSize.sm, color: Colors.liferPrimary, fontWeight: '600' },
+  listTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  listCount: { ...TypeScale.body, color: Colors.liferPrimary, fontWeight: '600' },
   list: { paddingHorizontal: Spacing.md, paddingBottom: 24, gap: Spacing.sm },
   taskCard: {
     backgroundColor: Colors.white,
@@ -204,22 +204,22 @@ const styles = StyleSheet.create({
   },
   urgentCard: { borderColor: Colors.error + '60' },
   urgentBanner: { backgroundColor: Colors.error + '12', marginHorizontal: -Spacing.md, marginTop: -Spacing.md, marginBottom: Spacing.sm, paddingHorizontal: Spacing.md, paddingVertical: 5 },
-  urgentText: { color: Colors.error, fontSize: FontSize.xs, fontWeight: '700' },
+  urgentText: { color: Colors.error, ...TypeScale.caption, fontWeight: '700' },
   taskCardRow: { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
   taskIcon: { width: 48, height: 48, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center' },
   taskInfo: { flex: 1 },
-  taskTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  taskLocation: { fontSize: FontSize.xs, marginTop: 4 },
-  taskDesc: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 4 },
+  taskTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  taskLocation: { ...TypeScale.caption, marginTop: 4 },
+  taskDesc: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 4 },
   taskFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Spacing.sm, paddingTop: Spacing.sm, borderTopWidth: 1, borderTopColor: Colors.borderLight },
   priceTag: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  priceText: { fontSize: FontSize.md, fontWeight: '800', color: Colors.liferPrimary },
+  priceText: { ...TypeScale.title, fontWeight: '800', color: Colors.liferPrimary },
   tipTag: { backgroundColor: Colors.liferLight, paddingHorizontal: 8, paddingVertical: 3, borderRadius: Radius.full },
   taskMeta: { flexDirection: 'row', gap: 8 },
-  urgencyTag: { fontSize: FontSize.xs, color: Colors.textMuted, fontWeight: '500' },
-  distanceTag: { fontSize: FontSize.xs, color: Colors.info, fontWeight: '600' },
+  urgencyTag: { ...TypeScale.caption, color: Colors.textMuted, fontWeight: '500' },
+  distanceTag: { ...TypeScale.caption, color: Colors.info, fontWeight: '600' },
   empty: { alignItems: 'center', paddingVertical: Spacing.xxl },
   emptyEmoji: { fontSize: 48, marginBottom: Spacing.md },
-  emptyTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
-  emptySub: { fontSize: FontSize.base, color: Colors.textMuted, marginTop: 6, textAlign: 'center', paddingHorizontal: Spacing.xl },
+  emptyTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary },
+  emptySub: { ...TypeScale.bodyLg, color: Colors.textMuted, marginTop: 6, textAlign: 'center', paddingHorizontal: Spacing.xl },
 });

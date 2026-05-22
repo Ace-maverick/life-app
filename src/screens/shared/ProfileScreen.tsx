@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
   TextInput, Alert, Switch, Image,
@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 import * as Haptics from 'expo-haptics';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
 import { useApp } from '../../context/AppContext';
@@ -309,33 +309,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     ...Shadow.sm,
   },
-  name: { color: Colors.white, fontSize: FontSize.xxl, fontWeight: '800' },
+  name: { color: Colors.white, ...TypeScale.headline, fontWeight: '800' },
   rolePill: { backgroundColor: 'rgba(255,255,255,0.2)', paddingHorizontal: 14, paddingVertical: 5, borderRadius: Radius.full },
-  roleText: { color: Colors.white, fontSize: FontSize.sm, fontWeight: '600' },
-  rating: { color: 'rgba(255,255,255,0.75)', fontSize: FontSize.sm },
+  roleText: { color: Colors.white, ...TypeScale.body, fontWeight: '600' },
+  rating: { color: 'rgba(255,255,255,0.75)', ...TypeScale.body },
   body: { padding: Spacing.md, marginTop: -20 },
   verifyCard: { backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, borderWidth: 1.5, marginBottom: Spacing.md, ...Shadow.sm },
-  verifyText: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  verifyText: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   section: { backgroundColor: Colors.white, borderRadius: Radius.xl, padding: Spacing.md, borderWidth: 1, borderColor: Colors.border, marginBottom: Spacing.md, ...Shadow.sm },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.md },
-  sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  editBtn: { fontSize: FontSize.base, fontWeight: '600' },
+  sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  editBtn: { ...TypeScale.bodyLg, fontWeight: '600' },
   infoCard: {},
   infoRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 9, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  infoLabel: { fontSize: FontSize.base, color: Colors.textMuted },
-  infoValue: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  infoLabel: { ...TypeScale.bodyLg, color: Colors.textMuted },
+  infoValue: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   editForm: {},
-  fieldLabel: { fontSize: FontSize.sm, color: Colors.textMuted, fontWeight: '600', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 },
-  input: { backgroundColor: Colors.gray50, borderWidth: 1.5, borderColor: Colors.border, borderRadius: Radius.lg, padding: Spacing.md, fontSize: FontSize.base, color: Colors.textPrimary, marginBottom: Spacing.md },
+  fieldLabel: { ...TypeScale.body, color: Colors.textMuted, fontWeight: '600', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 },
+  input: { backgroundColor: Colors.gray50, borderWidth: 1.5, borderColor: Colors.border, borderRadius: Radius.lg, padding: Spacing.md, ...TypeScale.bodyLg, color: Colors.textPrimary, marginBottom: Spacing.md },
   editActions: { flexDirection: 'row', gap: Spacing.sm, marginTop: Spacing.sm },
   tagsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   tag: { backgroundColor: Colors.liferLight, paddingHorizontal: 12, paddingVertical: 6, borderRadius: Radius.full },
-  tagText: { fontSize: FontSize.sm, fontWeight: '600', textTransform: 'capitalize' },
+  tagText: { ...TypeScale.body, fontWeight: '600', textTransform: 'capitalize' },
   // Notification toggles
   toggleRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12 },
   toggleRowBorder: { borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
   toggleIcon: { width: 36, height: 36, borderRadius: Radius.md, alignItems: 'center', justifyContent: 'center' },
   toggleInfo: { flex: 1 },
-  toggleLabel: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  toggleDesc: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
+  toggleLabel: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  toggleDesc: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
 });

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
@@ -164,20 +164,20 @@ const styles = StyleSheet.create({
     ...Shadow.md,
   },
   invoiceTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.sm },
-  invoiceLabel: { fontSize: FontSize.xs, fontWeight: '800', letterSpacing: 2, color: Colors.posterPrimary },
-  invoiceId: { fontSize: FontSize.xs, color: Colors.textMuted, fontWeight: '500' },
-  invoiceTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm },
+  invoiceLabel: { ...TypeScale.caption, fontWeight: '800', letterSpacing: 2, color: Colors.posterPrimary },
+  invoiceId: { ...TypeScale.caption, color: Colors.textMuted, fontWeight: '500' },
+  invoiceTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm },
   liferRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: Spacing.sm },
-  liferName: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary, flex: 1 },
-  liferRating: { fontSize: FontSize.sm, color: Colors.textMuted },
+  liferName: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary, flex: 1 },
+  liferRating: { ...TypeScale.body, color: Colors.textMuted },
   divider: { height: 1, backgroundColor: Colors.border, marginVertical: Spacing.md },
   lineItem: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  lineLabel: { fontSize: FontSize.base, color: Colors.textSecondary },
-  lineValue: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  lineLabel: { ...TypeScale.bodyLg, color: Colors.textSecondary },
+  lineValue: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: Spacing.md, marginTop: Spacing.sm },
-  totalLabel: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  totalAmount: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.posterPrimary },
-  sectionLabel: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.md },
+  totalLabel: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  totalAmount: { ...TypeScale.headline, fontWeight: '800', color: Colors.posterPrimary },
+  sectionLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.md },
   methodCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -193,8 +193,8 @@ const styles = StyleSheet.create({
   methodCardSelected: { borderColor: Colors.posterPrimary, backgroundColor: Colors.posterLight },
   methodEmoji: { fontSize: 26 },
   methodInfo: { flex: 1 },
-  methodLabel: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  methodDesc: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
+  methodLabel: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  methodDesc: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
   radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, borderColor: Colors.border, alignItems: 'center', justifyContent: 'center' },
   radioFill: { width: 10, height: 10, borderRadius: 5, backgroundColor: Colors.posterPrimary },
   safetyNote: {
@@ -203,6 +203,6 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
     marginTop: Spacing.sm,
   },
-  safetyText: { fontSize: FontSize.sm, color: Colors.liferPrimary, lineHeight: 20 },
+  safetyText: { ...TypeScale.body, color: Colors.liferPrimary, lineHeight: 20 },
   footer: { padding: Spacing.md, backgroundColor: Colors.white, borderTopWidth: 1, borderTopColor: Colors.border },
 });

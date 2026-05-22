@@ -1,8 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
 import { useApp } from '../../context/AppContext';
@@ -88,24 +88,24 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.lg },
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: Spacing.md },
-  label: { color: 'rgba(255,255,255,0.55)', fontSize: FontSize.xs, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
-  name: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800', marginTop: 4 },
-  role: { color: 'rgba(255,255,255,0.65)', fontSize: FontSize.sm, marginTop: 3 },
+  label: { color: 'rgba(255,255,255,0.55)', ...TypeScale.caption, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
+  name: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800', marginTop: 4 },
+  role: { color: 'rgba(255,255,255,0.65)', ...TypeScale.body, marginTop: 3 },
   shiftTag: { backgroundColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 14, paddingVertical: 7, borderRadius: Radius.full, alignSelf: 'flex-start' },
-  shiftText: { color: Colors.white, fontSize: FontSize.sm, fontWeight: '600' },
+  shiftText: { color: Colors.white, ...TypeScale.body, fontWeight: '600' },
   content: { padding: Spacing.md, paddingBottom: 32 },
-  sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
+  sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
   statsRow: { flexDirection: 'row', gap: Spacing.sm },
   statCard: { flex: 1, backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, alignItems: 'center', borderWidth: 1, borderColor: Colors.border, borderTopWidth: 3, ...Shadow.sm },
-  statValue: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary },
-  statLabel: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
+  statValue: { ...TypeScale.headline, fontWeight: '800', color: Colors.textPrimary },
+  statLabel: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 3 },
   taskCard: { backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, marginBottom: Spacing.sm, borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
   taskRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  taskTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary, flex: 1 },
-  taskMeta: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
+  taskTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary, flex: 1 },
+  taskMeta: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 3 },
   statusDot: { width: 10, height: 10, borderRadius: 5 },
   disputeCard: { backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, marginBottom: Spacing.sm, borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
-  disputeTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  disputeMeta: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
-  emptyText: { color: Colors.textMuted, fontSize: FontSize.base, textAlign: 'center', paddingVertical: Spacing.md },
+  disputeTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  disputeMeta: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 3 },
+  emptyText: { color: Colors.textMuted, ...TypeScale.bodyLg, textAlign: 'center', paddingVertical: Spacing.md },
 });

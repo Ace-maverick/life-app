@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import { CATEGORIES } from '../../data/services';
 
@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
   content: { padding: Spacing.md, gap: Spacing.sm, paddingBottom: 32 },
   catSection: { backgroundColor: Colors.white, borderRadius: Radius.xl, overflow: 'hidden', borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
   catHeader: { flexDirection: 'row', alignItems: 'center', gap: 10, padding: Spacing.md, backgroundColor: Colors.white },
-  catName: { flex: 1, fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary },
-  catCount: { fontSize: FontSize.xs, fontWeight: '600' },
-  expandArrow: { fontSize: FontSize.sm, color: Colors.textMuted },
+  catName: { flex: 1, ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary },
+  catCount: { ...TypeScale.caption, fontWeight: '600' },
+  expandArrow: { ...TypeScale.body, color: Colors.textMuted },
   subSection: { paddingHorizontal: Spacing.md, paddingBottom: Spacing.sm },
-  subName: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.7, marginTop: Spacing.sm, marginBottom: 4 },
+  subName: { ...TypeScale.body, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.7, marginTop: Spacing.sm, marginBottom: 4 },
   jobRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  jobName: { flex: 1, fontSize: FontSize.sm, color: Colors.textPrimary },
+  jobName: { flex: 1, ...TypeScale.body, color: Colors.textPrimary },
   priceCol: { alignItems: 'flex-end' },
-  basePrice: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.posterPrimary },
-  feePrice: { fontSize: FontSize.xs, color: Colors.textMuted },
+  basePrice: { ...TypeScale.body, fontWeight: '700', color: Colors.posterPrimary },
+  feePrice: { ...TypeScale.caption, color: Colors.textMuted },
 });

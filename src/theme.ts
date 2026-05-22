@@ -70,6 +70,7 @@ export const Radius = {
   full: 999,
 };
 
+/** @deprecated Use TypeScale spreads instead: `...TypeScale.bodyLg` */
 export const FontSize = {
   xs: 11,
   sm: 13,
@@ -79,6 +80,34 @@ export const FontSize = {
   xl: 22,
   xxl: 28,
   xxxl: 36,
+};
+
+/**
+ * TypeScale — semantic text styles.
+ * Each entry bundles fontSize + lineHeight so they always travel together.
+ * Spread into StyleSheet definitions; override fontWeight/color per-context.
+ *
+ * Usage:
+ *   myTitle: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.white }
+ *   body:    { ...TypeScale.body,    color: Colors.textSecondary }
+ */
+export const TypeScale = {
+  /** 36 / 44 — hero numbers, big payment totals */
+  display:   { fontSize: 36, lineHeight: 44 },
+  /** 28 / 34 — wallet totals, section hero values */
+  headline:  { fontSize: 28, lineHeight: 34 },
+  /** 22 / 28 — screen title, greeting name */
+  titleLg:   { fontSize: 22, lineHeight: 28 },
+  /** 18 / 24 — section heading, card emphasis title */
+  titleMd:   { fontSize: 18, lineHeight: 24 },
+  /** 16 / 22 — card/list item title, strong label */
+  title:     { fontSize: 16, lineHeight: 22 },
+  /** 15 / 22 — main body text, task description */
+  bodyLg:    { fontSize: 15, lineHeight: 22 },
+  /** 13 / 20 — secondary info, chips, role badges */
+  body:      { fontSize: 13, lineHeight: 20 },
+  /** 11 / 15 — timestamps, fine print, tiny labels */
+  caption:   { fontSize: 11, lineHeight: 15 },
 };
 
 export const Shadow = {

@@ -1,7 +1,7 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, FontSize, Spacing } from '../theme';
+import { Colors, TypeScale, Spacing } from '../theme';
 
 interface ScreenHeaderProps {
   title: string;
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: FontSize.lg,
+    ...TypeScale.titleMd,
     fontWeight: '700',
   },
   subtitle: {
-    fontSize: FontSize.xs,
+    ...TypeScale.caption,
     marginTop: 2,
   },
   right: {

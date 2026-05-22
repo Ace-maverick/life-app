@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Animated, Alert, Modal, ScrollView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 import { useApp } from '../../context/AppContext';
@@ -232,8 +232,8 @@ export default function SearchingScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   topBar: { paddingHorizontal: Spacing.lg, paddingVertical: Spacing.md },
-  topBarTitle: { color: Colors.white, fontSize: FontSize.md, fontWeight: '700' },
-  topBarSub: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm, marginTop: 3 },
+  topBarTitle: { color: Colors.white, ...TypeScale.title, fontWeight: '700' },
+  topBarSub: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body, marginTop: 3 },
   content: { padding: Spacing.md },
   mapArea: { borderRadius: Radius.xl, overflow: 'hidden', height: 260, marginBottom: Spacing.md },
   mapBg: { flex: 1, alignItems: 'center', justifyContent: 'center' },
@@ -269,23 +269,23 @@ const styles = StyleSheet.create({
     ...Shadow.md,
   },
   searchingState: { alignItems: 'center' },
-  searchTitle: { fontSize: FontSize.xl, fontWeight: '700', color: Colors.textPrimary, marginBottom: 6 },
-  searchSub: { fontSize: FontSize.base, color: Colors.textMuted, textAlign: 'center', marginBottom: Spacing.lg },
+  searchTitle: { ...TypeScale.titleLg, fontWeight: '700', color: Colors.textPrimary, marginBottom: 6 },
+  searchSub: { ...TypeScale.bodyLg, color: Colors.textMuted, textAlign: 'center', marginBottom: Spacing.lg },
   timerRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   timerBadge: { backgroundColor: Colors.posterLight, paddingHorizontal: 12, paddingVertical: 5, borderRadius: Radius.full },
-  timerText: { color: Colors.posterPrimary, fontWeight: '700', fontSize: FontSize.sm },
-  timerLabel: { color: Colors.textMuted, fontSize: FontSize.sm },
+  timerText: { color: Colors.posterPrimary, fontWeight: '700', ...TypeScale.body },
+  timerLabel: { color: Colors.textMuted, ...TypeScale.body },
   acceptedState: {},
   acceptedHeader: { marginBottom: Spacing.md },
-  acceptedTitle: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.textPrimary },
-  acceptedSub: { color: Colors.textMuted, fontSize: FontSize.sm, marginTop: 4 },
+  acceptedTitle: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.textPrimary },
+  acceptedSub: { color: Colors.textMuted, ...TypeScale.body, marginTop: 4 },
   liferProfile: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: Colors.gray50, borderRadius: Radius.lg, padding: Spacing.md },
   liferDetails: { flex: 1 },
-  liferName: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
+  liferName: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
   ratingRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 4 },
-  starText: { fontSize: FontSize.sm, fontWeight: '600' },
-  ratingCount: { fontSize: FontSize.xs, color: Colors.textMuted },
-  verifiedBadge: { fontSize: FontSize.xs, color: Colors.liferPrimary, fontWeight: '600', marginTop: 4 },
+  starText: { ...TypeScale.body, fontWeight: '600' },
+  ratingCount: { ...TypeScale.caption, color: Colors.textMuted },
+  verifiedBadge: { ...TypeScale.caption, color: Colors.liferPrimary, fontWeight: '600', marginTop: 4 },
   callBtn: { width: 42, height: 42, borderRadius: 21, backgroundColor: Colors.liferLight, alignItems: 'center', justifyContent: 'center' },
   callEmoji: { fontSize: 20 },
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' },
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     padding: Spacing.xl,
     paddingBottom: 36,
   },
-  modalTitle: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.textPrimary, textAlign: 'center', marginBottom: 6 },
+  modalTitle: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.textPrimary, textAlign: 'center', marginBottom: 6 },
   modalSub: { color: Colors.textMuted, textAlign: 'center', marginBottom: Spacing.xl },
   tipGrid: { flexDirection: 'row', gap: Spacing.sm, marginBottom: Spacing.md },
   tipBtn: {
@@ -308,8 +308,8 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: Colors.posterPrimary + '40',
   },
-  tipAmount: { fontSize: FontSize.md, fontWeight: '800', color: Colors.posterPrimary },
-  tipLabel: { fontSize: FontSize.xs, color: Colors.posterPrimary, marginTop: 2 },
+  tipAmount: { ...TypeScale.title, fontWeight: '800', color: Colors.posterPrimary },
+  tipLabel: { ...TypeScale.caption, color: Colors.posterPrimary, marginTop: 2 },
   skipTip: { alignItems: 'center', paddingVertical: Spacing.sm },
-  skipTipText: { color: Colors.textMuted, fontSize: FontSize.base },
+  skipTipText: { color: Colors.textMuted, ...TypeScale.bodyLg },
 });

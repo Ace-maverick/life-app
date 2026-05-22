@@ -1,7 +1,7 @@
-import React from 'react';
+﻿import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { Colors, Radius, FontSize, Spacing } from '../theme';
+import { Colors, Radius, TypeScale, Spacing } from '../theme';
 
 interface ButtonProps {
   label: string;
@@ -46,8 +46,8 @@ export default function Button({
 
   const labelStyle: TextStyle = {
     ...styles.label,
-    ...(size === 'sm' && { fontSize: FontSize.sm }),
-    ...(size === 'lg' && { fontSize: FontSize.lg }),
+    ...(size === 'sm' && { ...TypeScale.body }),
+    ...(size === 'lg' && { ...TypeScale.titleMd }),
     ...(variant === 'primary' && { color: Colors.white }),
     ...(variant === 'secondary' && { color: Colors.textPrimary }),
     ...(variant === 'outline' && { color: primaryColor }),
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   label: {
-    fontSize: FontSize.base,
+    ...TypeScale.bodyLg,
     fontWeight: '600',
     letterSpacing: 0.2,
   },

@@ -1,9 +1,9 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
 import { useApp } from '../../context/AppContext';
@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.lg },
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.sm },
-  greeting: { color: 'rgba(255,255,255,0.55)', fontSize: FontSize.xs, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
-  adminName: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800', marginTop: 2 },
-  tagline: { color: 'rgba(255,255,255,0.35)', fontSize: FontSize.xs, letterSpacing: 1.5, fontWeight: '600' },
+  greeting: { color: 'rgba(255,255,255,0.55)', ...TypeScale.caption, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
+  adminName: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800', marginTop: 2 },
+  tagline: { color: 'rgba(255,255,255,0.35)', ...TypeScale.caption, letterSpacing: 1.5, fontWeight: '600' },
   content: { padding: Spacing.md, paddingBottom: 32 },
   alertCard: { backgroundColor: Colors.warningLight, borderRadius: Radius.lg, padding: Spacing.md, marginBottom: Spacing.md, borderWidth: 1, borderColor: Colors.warning + '40' },
-  alertTitle: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary, marginBottom: 6 },
-  alertItem: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 3 },
-  sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
+  alertTitle: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary, marginBottom: 6 },
+  alertItem: { ...TypeScale.body, color: Colors.textSecondary, marginTop: 3 },
+  sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
   metricsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   metricCard: {
     width: '31%',
@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
     gap: 4,
     ...Shadow.sm,
   },
-  metricValue: { fontSize: FontSize.xl, fontWeight: '800' },
-  metricLabel: { fontSize: FontSize.xs, color: Colors.textMuted, textAlign: 'center' },
+  metricValue: { ...TypeScale.titleLg, fontWeight: '800' },
+  metricLabel: { ...TypeScale.caption, color: Colors.textMuted, textAlign: 'center' },
   actionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   actionCard: {
     width: '47%',
@@ -178,12 +178,12 @@ const styles = StyleSheet.create({
     position: 'relative',
     ...Shadow.sm,
   },
-  actionTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  actionTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   actionBadge: { position: 'absolute', top: 8, right: 8, minWidth: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5 },
   actionBadgeText: { color: Colors.white, fontSize: 10, fontWeight: '700' },
   taskRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, marginBottom: Spacing.sm, borderWidth: 1, borderColor: Colors.border, gap: 12, ...Shadow.sm },
   taskInfo: { flex: 1 },
-  taskTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  taskMeta: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
-  taskPrice: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.posterPrimary },
+  taskTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  taskMeta: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 3 },
+  taskPrice: { ...TypeScale.body, fontWeight: '700', color: Colors.posterPrimary },
 });

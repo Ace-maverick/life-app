@@ -1,9 +1,9 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import { Notification } from '../../data/types';
 
@@ -182,15 +182,15 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
     backgroundColor: Colors.white,
   },
-  heading: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.textPrimary },
-  unreadCount: { fontSize: FontSize.sm, color: Colors.posterPrimary, fontWeight: '600', marginTop: 2 },
+  heading: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.textPrimary },
+  unreadCount: { ...TypeScale.body, color: Colors.posterPrimary, fontWeight: '600', marginTop: 2 },
   markAllBtn: {
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: Radius.full,
     backgroundColor: Colors.gray100,
   },
-  markAllText: { fontSize: FontSize.sm, color: Colors.textSecondary, fontWeight: '600' },
+  markAllText: { ...TypeScale.body, color: Colors.textSecondary, fontWeight: '600' },
   list: { padding: Spacing.md, gap: Spacing.sm },
   // Notification card
   card: {
@@ -219,14 +219,14 @@ const styles = StyleSheet.create({
   },
   info: { flex: 1 },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 },
-  title: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary, flex: 1 },
+  title: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary, flex: 1 },
   dot: { width: 8, height: 8, borderRadius: 4 },
-  body: { fontSize: FontSize.sm, color: Colors.textSecondary, lineHeight: 18 },
-  time: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 5 },
+  body: { ...TypeScale.body, color: Colors.textSecondary, lineHeight: 18 },
+  time: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 5 },
   empty: { alignItems: 'center', paddingVertical: Spacing.xxl },
   emptyEmoji: { fontSize: 48, marginBottom: Spacing.md },
-  emptyTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
-  emptySub: { fontSize: FontSize.base, color: Colors.textMuted, marginTop: 6 },
+  emptyTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary },
+  emptySub: { ...TypeScale.bodyLg, color: Colors.textMuted, marginTop: 6 },
   // Active task tracker
   trackerCard: {
     backgroundColor: Colors.white,
@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   trackerHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: Spacing.md },
-  trackerLabel: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.error },
-  trackerTitle: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary, flex: 1 },
+  trackerLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.error },
+  trackerTitle: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary, flex: 1 },
   trackerSteps: { flexDirection: 'row', alignItems: 'flex-start' },
   trackerStep: { flex: 1, alignItems: 'center' },
   trackerDot: {

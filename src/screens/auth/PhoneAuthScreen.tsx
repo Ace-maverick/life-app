@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Button from '../../components/Button';
 import { RootStackParams } from '../../navigation';
 
@@ -122,11 +122,11 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   backBtn: { paddingVertical: 4, paddingRight: 8 },
-  backText: { color: Colors.white, fontSize: FontSize.base, fontWeight: '500' },
-  roleLabel: { color: Colors.white, fontSize: FontSize.md, fontWeight: '700' },
+  backText: { color: Colors.white, ...TypeScale.bodyLg, fontWeight: '500' },
+  roleLabel: { color: Colors.white, ...TypeScale.title, fontWeight: '700' },
   scroll: { padding: Spacing.lg },
-  heading: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
-  sub: { color: Colors.textMuted, fontSize: FontSize.base, marginBottom: Spacing.xl },
+  heading: { ...TypeScale.headline, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
+  sub: { color: Colors.textMuted, ...TypeScale.bodyLg, marginBottom: Spacing.xl },
   inputWrap: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   flag: {
     paddingHorizontal: Spacing.md,
-    fontSize: FontSize.base,
+    ...TypeScale.bodyLg,
     color: Colors.textPrimary,
     fontWeight: '500',
     borderRightWidth: 1,
@@ -148,13 +148,13 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: FontSize.md,
+    ...TypeScale.title,
     paddingHorizontal: Spacing.md,
     paddingVertical: 14,
     color: Colors.textPrimary,
   },
   demoSection: { marginTop: Spacing.xxl },
-  demoTitle: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.textMuted, marginBottom: Spacing.md, textTransform: 'uppercase', letterSpacing: 1 },
+  demoTitle: { ...TypeScale.body, fontWeight: '700', color: Colors.textMuted, marginBottom: Spacing.md, textTransform: 'uppercase', letterSpacing: 1 },
   demoCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -167,9 +167,9 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   demoAvatar: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  demoAvatarText: { color: Colors.white, fontSize: FontSize.lg, fontWeight: '700' },
+  demoAvatarText: { color: Colors.white, ...TypeScale.titleMd, fontWeight: '700' },
   demoInfo: { flex: 1 },
-  demoName: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  demoPhone: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 2 },
+  demoName: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  demoPhone: { ...TypeScale.body, color: Colors.textMuted, marginTop: 2 },
   demoArrow: { fontSize: 24, fontWeight: '300' },
 });

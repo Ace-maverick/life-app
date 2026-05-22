@@ -1,9 +1,9 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
@@ -147,17 +147,17 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     marginBottom: Spacing.md,
   },
-  catName: { fontSize: FontSize.base, fontWeight: '700' },
-  subName: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 2 },
+  catName: { ...TypeScale.bodyLg, fontWeight: '700' },
+  subName: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
   urgentBadge: { marginLeft: 'auto', backgroundColor: Colors.errorLight, paddingHorizontal: 10, paddingVertical: 5, borderRadius: Radius.full },
-  urgentText: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.error },
-  jobTitle: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary, marginBottom: 8 },
-  jobDesc: { fontSize: FontSize.base, color: Colors.textSecondary, marginBottom: Spacing.md, lineHeight: 22 },
+  urgentText: { ...TypeScale.caption, fontWeight: '700', color: Colors.error },
+  jobTitle: { ...TypeScale.headline, fontWeight: '800', color: Colors.textPrimary, marginBottom: 8 },
+  jobDesc: { ...TypeScale.bodyLg, color: Colors.textSecondary, marginBottom: Spacing.md, lineHeight: 22 },
   earningsCard: { borderRadius: Radius.xl, padding: Spacing.lg, marginBottom: Spacing.md },
-  earningsLabel: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
-  earningsAmount: { color: Colors.white, fontSize: FontSize.xxxl, fontWeight: '800', marginTop: 4 },
+  earningsLabel: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
+  earningsAmount: { color: Colors.white, ...TypeScale.display, fontWeight: '800', marginTop: 4 },
   earningsBreakdown: { flexDirection: 'row', gap: 12, marginTop: 6 },
-  earningsDetail: { color: 'rgba(255,255,255,0.75)', fontSize: FontSize.sm },
+  earningsDetail: { color: 'rgba(255,255,255,0.75)', ...TypeScale.body },
   detailCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.lg,
@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 9, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  detailLabel: { fontSize: FontSize.base, color: Colors.textMuted, fontWeight: '500' },
-  detailValue: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary, flex: 1, textAlign: 'right' },
+  detailLabel: { ...TypeScale.bodyLg, color: Colors.textMuted, fontWeight: '500' },
+  detailValue: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary, flex: 1, textAlign: 'right' },
   posterCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.lg,
@@ -179,11 +179,11 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     ...Shadow.sm,
   },
-  sectionLabel: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
+  sectionLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
   posterRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  posterName: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary },
-  posterRating: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 3 },
+  posterName: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary },
+  posterRating: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
   safetyNote: { backgroundColor: Colors.infoLight, borderRadius: Radius.lg, padding: Spacing.md },
-  safetyText: { fontSize: FontSize.sm, color: Colors.info, lineHeight: 20 },
+  safetyText: { ...TypeScale.body, color: Colors.info, lineHeight: 20 },
   footer: { padding: Spacing.md, backgroundColor: Colors.white, borderTopWidth: 1, borderTopColor: Colors.border },
 });

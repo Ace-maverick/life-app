@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 import { useApp } from '../../context/AppContext';
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.5)',
   },
   checkEmoji: { color: Colors.white, fontSize: 40, fontWeight: '800' },
-  successTitle: { color: Colors.white, fontSize: FontSize.xxl, fontWeight: '800', marginBottom: 6 },
-  successSub: { color: 'rgba(255,255,255,0.75)', fontSize: FontSize.base },
+  successTitle: { color: Colors.white, ...TypeScale.headline, fontWeight: '800', marginBottom: 6 },
+  successSub: { color: 'rgba(255,255,255,0.75)', ...TypeScale.bodyLg },
   receiptCard: {
     backgroundColor: Colors.white,
     margin: Spacing.md,
@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
     ...Shadow.md,
   },
   receiptHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: Spacing.sm },
-  receiptLabel: { fontSize: FontSize.xs, fontWeight: '800', letterSpacing: 2, color: Colors.liferPrimary },
-  receiptId: { fontSize: FontSize.xs, color: Colors.textMuted },
-  receiptTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.md },
+  receiptLabel: { ...TypeScale.caption, fontWeight: '800', letterSpacing: 2, color: Colors.liferPrimary },
+  receiptId: { ...TypeScale.caption, color: Colors.textMuted },
+  receiptTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.md },
   receiptRows: {},
   receiptRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  receiptRowLabel: { color: Colors.textSecondary, fontSize: FontSize.base },
-  receiptRowValue: { fontWeight: '600', color: Colors.textPrimary, fontSize: FontSize.base },
+  receiptRowLabel: { color: Colors.textSecondary, ...TypeScale.bodyLg },
+  receiptRowValue: { fontWeight: '600', color: Colors.textPrimary, ...TypeScale.bodyLg },
   ratingCard: {
     backgroundColor: Colors.white,
     margin: Spacing.md,
@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
     ...Shadow.sm,
   },
-  ratingTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.md },
+  ratingTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.md },
   liferRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: Spacing.md },
-  liferName: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  liferSubtext: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 3 },
+  liferName: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  liferSubtext: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
   starsRow: { flexDirection: 'row', gap: 8 },
   star: { fontSize: 40, color: Colors.gray300 },
   starActive: { color: '#F59E0B' },
-  thankYou: { fontSize: FontSize.base, color: Colors.liferPrimary, fontWeight: '600', marginTop: Spacing.md },
+  thankYou: { ...TypeScale.bodyLg, color: Colors.liferPrimary, fontWeight: '600', marginTop: Spacing.md },
   footer: { padding: Spacing.md, backgroundColor: Colors.white, borderTopWidth: 1, borderTopColor: Colors.border },
 });

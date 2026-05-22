@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+﻿import React, { useRef, useState, useCallback } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal,
 } from 'react-native';
@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import Avatar from '../../components/Avatar';
 import StatusBadge from '../../components/StatusBadge';
@@ -321,8 +321,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.lg },
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.md },
-  greeting: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm },
-  userName: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800', marginTop: 2 },
+  greeting: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body },
+  userName: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800', marginTop: 2 },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   bell: { position: 'relative', padding: 4 },
   bellBadge: {
@@ -345,18 +345,18 @@ const styles = StyleSheet.create({
   },
   statItem: { flex: 1, alignItems: 'center' },
   statDivider: { width: 1, backgroundColor: 'rgba(255,255,255,0.2)' },
-  statValue: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800' },
-  statLabel: { color: 'rgba(255,255,255,0.65)', fontSize: FontSize.xs, marginTop: 2 },
+  statValue: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800' },
+  statLabel: { color: 'rgba(255,255,255,0.65)', ...TypeScale.caption, marginTop: 2 },
   body: { flex: 1 },
   bodyContent: { padding: Spacing.md, paddingBottom: 32 },
   ctaBtn: { borderRadius: Radius.xl, overflow: 'hidden', marginBottom: Spacing.lg, ...Shadow.md },
   ctaBtnInner: { flexDirection: 'row', alignItems: 'center', gap: 14, padding: 18 },
   ctaPlus: { color: Colors.white, fontSize: 36, fontWeight: '300', lineHeight: 36 },
-  ctaTitle: { color: Colors.white, fontSize: FontSize.lg, fontWeight: '700' },
-  ctaSub: { color: 'rgba(255,255,255,0.7)', fontSize: FontSize.sm, marginTop: 2 },
+  ctaTitle: { color: Colors.white, ...TypeScale.titleMd, fontWeight: '700' },
+  ctaSub: { color: 'rgba(255,255,255,0.7)', ...TypeScale.body, marginTop: 2 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Spacing.md, marginBottom: Spacing.sm },
-  sectionTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
-  seeAll: { fontSize: FontSize.sm, color: Colors.posterPrimary, fontWeight: '600' },
+  sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.sm, marginTop: Spacing.md },
+  seeAll: { ...TypeScale.body, color: Colors.posterPrimary, fontWeight: '600' },
   // Quick services
   quickRowWrapper: { position: 'relative', marginHorizontal: -Spacing.md, marginBottom: Spacing.sm },
   quickRow: { paddingHorizontal: Spacing.md },
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
   quickSwipeText: { fontSize: 18, color: Colors.gray400, fontWeight: '700' },
   quickCat: { alignItems: 'center', marginRight: Spacing.md, width: 72 },
   quickIcon: { width: 56, height: 56, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
-  quickLabel: { fontSize: FontSize.xs, color: Colors.textSecondary, textAlign: 'center', lineHeight: 14 },
+  quickLabel: { ...TypeScale.caption, color: Colors.textSecondary, textAlign: 'center', lineHeight: 14 },
   // Task card
   taskCard: {
     backgroundColor: Colors.white,
@@ -396,21 +396,21 @@ const styles = StyleSheet.create({
   taskIcon: { width: 44, height: 44, borderRadius: Radius.md, alignItems: 'center', justifyContent: 'center' },
   taskEmoji: { fontSize: 20 },
   taskInfo: { flex: 1 },
-  taskTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  taskLocation: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 3 },
+  taskTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  taskLocation: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 3 },
   taskRight: { alignItems: 'flex-end', gap: 5 },
-  taskPrice: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.posterPrimary },
+  taskPrice: { ...TypeScale.body, fontWeight: '700', color: Colors.posterPrimary },
   reorderBadge: {
     backgroundColor: Colors.posterLight,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: Radius.full,
   },
-  reorderBadgeText: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.posterPrimary },
+  reorderBadgeText: { ...TypeScale.caption, fontWeight: '700', color: Colors.posterPrimary },
   emptyState: { alignItems: 'center', paddingVertical: Spacing.xxl },
   emptyEmoji: { fontSize: 48, marginBottom: Spacing.md },
-  emptyTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
-  emptySub: { fontSize: FontSize.base, color: Colors.textMuted, marginTop: 6, textAlign: 'center' },
+  emptyTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary },
+  emptySub: { ...TypeScale.bodyLg, color: Colors.textMuted, marginTop: 6, textAlign: 'center' },
   // Order Again Modal
   modalOverlay: {
     flex: 1,
@@ -445,11 +445,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  modalTitle: { fontSize: FontSize.lg, fontWeight: '800', color: Colors.textPrimary },
-  modalSub: { fontSize: FontSize.sm, color: Colors.textSecondary, marginTop: 2 },
-  modalPrice: { fontSize: FontSize.base, fontWeight: '700', color: Colors.posterPrimary, marginTop: 4 },
+  modalTitle: { ...TypeScale.titleMd, fontWeight: '800', color: Colors.textPrimary },
+  modalSub: { ...TypeScale.body, color: Colors.textSecondary, marginTop: 2 },
+  modalPrice: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.posterPrimary, marginTop: 4 },
   modalDivider: { height: 1, backgroundColor: Colors.border, marginBottom: Spacing.md },
   modalBtn: { marginBottom: Spacing.sm },
   modalCancel: { alignItems: 'center', paddingVertical: Spacing.sm },
-  modalCancelText: { fontSize: FontSize.base, color: Colors.textMuted, fontWeight: '600' },
+  modalCancelText: { ...TypeScale.bodyLg, color: Colors.textMuted, fontWeight: '600' },
 });

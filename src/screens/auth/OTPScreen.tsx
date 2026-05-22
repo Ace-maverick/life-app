@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+﻿import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Button from '../../components/Button';
 import { useApp } from '../../context/AppContext';
 import { RootStackParams } from '../../navigation';
@@ -109,12 +109,12 @@ export default function OTPScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   backBtn: { padding: Spacing.md },
-  backText: { fontSize: FontSize.base, fontWeight: '500' },
+  backText: { ...TypeScale.bodyLg, fontWeight: '500' },
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: Spacing.xl },
   iconWrap: { width: 80, height: 80, borderRadius: 40, alignItems: 'center', justifyContent: 'center', marginBottom: Spacing.lg },
   icon: { fontSize: 36 },
-  heading: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary, marginBottom: 8, textAlign: 'center' },
-  sub: { fontSize: FontSize.base, color: Colors.textMuted, textAlign: 'center', lineHeight: 22, marginBottom: Spacing.xl },
+  heading: { ...TypeScale.headline, fontWeight: '800', color: Colors.textPrimary, marginBottom: 8, textAlign: 'center' },
+  sub: { ...TypeScale.bodyLg, color: Colors.textMuted, textAlign: 'center', lineHeight: 22, marginBottom: Spacing.xl },
   phoneHighlight: { fontWeight: '700' },
   pinRow: { flexDirection: 'row', gap: 16, marginBottom: Spacing.md },
   pinDot: {
@@ -130,6 +130,6 @@ const styles = StyleSheet.create({
     width: 1,
     height: 1,
   },
-  hint: { marginTop: Spacing.lg, color: Colors.textMuted, fontSize: FontSize.sm },
+  hint: { marginTop: Spacing.lg, color: Colors.textMuted, ...TypeScale.body },
   hintBold: { fontWeight: '700' },
 });

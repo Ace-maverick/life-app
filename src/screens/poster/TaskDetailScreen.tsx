@@ -1,8 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import StatusBadge from '../../components/StatusBadge';
 import Avatar from '../../components/Avatar';
@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
   },
   catIcon: { width: 52, height: 52, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center' },
   taskHeaderInfo: { flex: 1 },
-  taskTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
-  taskLocation: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 4 },
+  taskTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary },
+  taskLocation: { ...TypeScale.body, color: Colors.textMuted, marginTop: 4 },
   liferCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.xl,
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
   },
   liferRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 8 },
   liferInfo: { flex: 1 },
-  liferName: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  liferRating: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 3 },
-  liferBadge: { fontSize: FontSize.xs, color: Colors.liferPrimary, fontWeight: '600', marginTop: 3 },
+  liferName: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  liferRating: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
+  liferBadge: { ...TypeScale.caption, color: Colors.liferPrimary, fontWeight: '600', marginTop: 3 },
   callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.liferLight, alignItems: 'center', justifyContent: 'center' },
   section: { marginBottom: Spacing.md },
-  sectionLabel: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
+  sectionLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
   timelineRow: { flexDirection: 'row', minHeight: 48 },
   timelineLeft: { width: 32, alignItems: 'center' },
   timelineDot: {
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   timelineLine: { flex: 1, width: 2, backgroundColor: Colors.gray200, marginVertical: 2 },
   timelineLineDone: { backgroundColor: Colors.posterPrimary },
   timelineContent: { flex: 1, paddingLeft: 12, paddingTop: 4, paddingBottom: 12 },
-  timelineLabel: { fontSize: FontSize.base, color: Colors.gray400 },
+  timelineLabel: { ...TypeScale.bodyLg, color: Colors.gray400 },
   timelineLabelDone: { color: Colors.textPrimary },
   priceCard: {
     backgroundColor: Colors.white,
@@ -236,11 +236,11 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   priceRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  priceLabel: { fontSize: FontSize.base, color: Colors.textSecondary },
-  priceValue: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
+  priceLabel: { ...TypeScale.bodyLg, color: Colors.textSecondary },
+  priceValue: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   totalRow: { borderBottomWidth: 0, paddingTop: 10, marginTop: 4 },
-  totalLabel: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  totalValue: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.posterPrimary },
+  totalLabel: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  totalValue: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.posterPrimary },
   locationCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.lg,
@@ -249,6 +249,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
     ...Shadow.sm,
   },
-  locationMain: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  locationSub: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 4 },
+  locationMain: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  locationSub: { ...TypeScale.body, color: Colors.textMuted, marginTop: 4 },
 });

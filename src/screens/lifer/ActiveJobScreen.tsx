@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.md, paddingTop: 12 },
   backBtn: { paddingVertical: 6, marginBottom: 8 },
-  backText: { color: 'rgba(255,255,255,0.8)', fontSize: FontSize.base },
-  headerTitle: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '800', marginBottom: 8 },
+  backText: { color: 'rgba(255,255,255,0.8)', ...TypeScale.bodyLg },
+  headerTitle: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '800', marginBottom: 8 },
   content: { padding: Spacing.md, paddingBottom: 24 },
   summaryCard: {
     backgroundColor: Colors.white,
@@ -217,9 +217,9 @@ const styles = StyleSheet.create({
   summaryRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   catIcon: { width: 48, height: 48, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center' },
   summaryInfo: { flex: 1 },
-  summaryTitle: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  summaryLocation: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: 4 },
-  summaryEarning: { fontSize: FontSize.lg, fontWeight: '800', color: Colors.liferPrimary },
+  summaryTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  summaryLocation: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 4 },
+  summaryEarning: { ...TypeScale.titleMd, fontWeight: '800', color: Colors.liferPrimary },
   timerCard: {
     backgroundColor: Colors.liferLight,
     borderRadius: Radius.xl,
@@ -229,8 +229,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.liferPrimary + '30',
   },
-  timerLabel: { fontSize: FontSize.sm, color: Colors.liferPrimary, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
-  timerValue: { fontSize: FontSize.xxxl, fontWeight: '800', color: Colors.liferDark, marginTop: 4, fontVariant: ['tabular-nums'] },
+  timerLabel: { ...TypeScale.body, color: Colors.liferPrimary, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 1 },
+  timerValue: { ...TypeScale.display, fontWeight: '800', color: Colors.liferDark, marginTop: 4, fontVariant: ['tabular-nums'] },
   posterCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.lg,
@@ -240,11 +240,11 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     ...Shadow.sm,
   },
-  sectionLabel: { fontSize: FontSize.xs, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
+  sectionLabel: { ...TypeScale.caption, fontWeight: '700', color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: Spacing.sm },
   posterRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   posterInfo: { flex: 1 },
-  posterName: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  posterRating: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 3 },
+  posterName: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  posterRating: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
   callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.liferLight, alignItems: 'center', justifyContent: 'center' },
   locationCard: {
     backgroundColor: Colors.white,
@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     ...Shadow.sm,
   },
-  locationMain: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  locationSub: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 4 },
+  locationMain: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  locationSub: { ...TypeScale.body, color: Colors.textMuted, marginTop: 4 },
   waitingCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   waitingEmoji: { fontSize: 28 },
-  waitingTitle: { fontSize: FontSize.base, fontWeight: '700', color: Colors.textPrimary },
-  waitingSub: { fontSize: FontSize.sm, color: Colors.textMuted, marginTop: 3 },
+  waitingTitle: { ...TypeScale.bodyLg, fontWeight: '700', color: Colors.textPrimary },
+  waitingSub: { ...TypeScale.body, color: Colors.textMuted, marginTop: 3 },
   paidCard: {
     backgroundColor: Colors.white,
     borderRadius: Radius.xl,
@@ -279,13 +279,13 @@ const styles = StyleSheet.create({
   },
   paidHeader: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: Spacing.lg },
   paidEmoji: { fontSize: 36 },
-  paidTitle: { fontSize: FontSize.lg, fontWeight: '700', color: Colors.textPrimary },
-  paidAmount: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.liferPrimary, marginTop: 4 },
+  paidTitle: { ...TypeScale.titleMd, fontWeight: '700', color: Colors.textPrimary },
+  paidAmount: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.liferPrimary, marginTop: 4 },
   ratingSection: {},
-  ratingTitle: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary, marginBottom: Spacing.sm },
+  ratingTitle: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary, marginBottom: Spacing.sm },
   starsRow: { flexDirection: 'row', gap: 8 },
   star: { fontSize: 36, color: Colors.gray300 },
   starActive: { color: '#F59E0B' },
-  thankYou: { fontSize: FontSize.sm, color: Colors.liferPrimary, fontWeight: '600', marginTop: Spacing.sm },
+  thankYou: { ...TypeScale.body, color: Colors.liferPrimary, fontWeight: '600', marginTop: Spacing.sm },
   footer: { padding: Spacing.md, backgroundColor: Colors.white, borderTopWidth: 1, borderTopColor: Colors.border },
 });

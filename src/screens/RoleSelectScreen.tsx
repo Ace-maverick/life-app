@@ -1,10 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../theme';
 import { RootStackParams } from '../navigation';
 
 type Nav = NativeStackNavigationProp<RootStackParams>;
@@ -122,23 +122,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   logoLetter: { color: Colors.white, fontSize: 30, fontWeight: '800' },
-  appName: { color: Colors.white, fontSize: FontSize.xxl, fontWeight: '800', letterSpacing: -0.5 },
-  tagline: { color: 'rgba(255,255,255,0.45)', fontSize: FontSize.xs, letterSpacing: 2.5, marginTop: 4, fontWeight: '600' },
-  heading: { color: Colors.white, fontSize: FontSize.xl, fontWeight: '700', textAlign: 'center', marginTop: Spacing.md },
-  subheading: { color: 'rgba(255,255,255,0.55)', fontSize: FontSize.base, textAlign: 'center', marginTop: 6, marginBottom: Spacing.xl },
+  appName: { color: Colors.white, ...TypeScale.headline, fontWeight: '800', letterSpacing: -0.5 },
+  tagline: { color: 'rgba(255,255,255,0.45)', ...TypeScale.caption, letterSpacing: 2.5, marginTop: 4, fontWeight: '600' },
+  heading: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '700', textAlign: 'center', marginTop: Spacing.md },
+  subheading: { color: 'rgba(255,255,255,0.55)', ...TypeScale.bodyLg, textAlign: 'center', marginTop: 6, marginBottom: Spacing.xl },
   cards: { gap: Spacing.md },
   cardWrapper: { borderRadius: Radius.xl, overflow: 'hidden', ...Shadow.md },
   card: { borderRadius: Radius.xl, padding: 20 },
   cardInner: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   emoji: { fontSize: 32 },
   cardText: { flex: 1 },
-  cardTitle: { color: Colors.white, fontSize: FontSize.lg, fontWeight: '700' },
-  cardSub: { color: 'rgba(255,255,255,0.75)', fontSize: FontSize.sm, marginTop: 3 },
+  cardTitle: { color: Colors.white, ...TypeScale.titleMd, fontWeight: '700' },
+  cardSub: { color: 'rgba(255,255,255,0.75)', ...TypeScale.body, marginTop: 3 },
   arrow: { color: 'rgba(255,255,255,0.7)', fontSize: 28, fontWeight: '300' },
   hint: {
     textAlign: 'center',
     color: 'rgba(255,255,255,0.35)',
-    fontSize: FontSize.sm,
+    ...TypeScale.body,
     marginTop: Spacing.xl,
   },
   hintBold: { color: 'rgba(255,255,255,0.7)', fontWeight: '700' },

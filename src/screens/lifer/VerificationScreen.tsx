@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import ScreenHeader from '../../components/ScreenHeader';
 import Button from '../../components/Button';
 import { useApp } from '../../context/AppContext';
@@ -137,11 +137,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   content: { padding: Spacing.lg, paddingBottom: 32 },
   statusBanner: { borderRadius: Radius.lg, padding: Spacing.md, borderWidth: 1, marginBottom: Spacing.lg },
-  statusText: { fontSize: FontSize.base, fontWeight: '600' },
-  heading: { fontSize: FontSize.xxl, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
-  sub: { color: Colors.textMuted, fontSize: FontSize.base, marginBottom: Spacing.xl, lineHeight: 22 },
-  label: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textSecondary, marginBottom: Spacing.xs, textTransform: 'uppercase', letterSpacing: 0.6 },
-  labelSub: { fontSize: FontSize.xs, color: Colors.textMuted, marginBottom: Spacing.sm, marginTop: -Spacing.xs + 2 },
+  statusText: { ...TypeScale.bodyLg, fontWeight: '600' },
+  heading: { ...TypeScale.headline, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
+  sub: { color: Colors.textMuted, ...TypeScale.bodyLg, marginBottom: Spacing.xl, lineHeight: 22 },
+  label: { ...TypeScale.body, fontWeight: '600', color: Colors.textSecondary, marginBottom: Spacing.xs, textTransform: 'uppercase', letterSpacing: 0.6 },
+  labelSub: { ...TypeScale.caption, color: Colors.textMuted, marginBottom: Spacing.sm, marginTop: -Spacing.xs + 2 },
   input: {
     backgroundColor: Colors.white,
     borderWidth: 1.5,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: 13,
-    fontSize: FontSize.base,
+    ...TypeScale.bodyLg,
     color: Colors.textPrimary,
     marginBottom: Spacing.md,
     ...Shadow.sm,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   radiusRow: { flexDirection: 'row', gap: Spacing.sm, marginBottom: Spacing.md },
   radiusBtn: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: Radius.full, borderWidth: 1.5, borderColor: Colors.border, backgroundColor: Colors.white },
   radiusBtnActive: { backgroundColor: Colors.liferPrimary, borderColor: Colors.liferPrimary },
-  radiusBtnText: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textMuted },
+  radiusBtnText: { ...TypeScale.body, fontWeight: '600', color: Colors.textMuted },
   radiusBtnTextActive: { color: Colors.white },
   catGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, marginBottom: Spacing.lg },
   catBtn: {
@@ -172,8 +172,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     ...Shadow.sm,
   },
-  catBtnText: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textSecondary },
+  catBtnText: { ...TypeScale.body, fontWeight: '600', color: Colors.textSecondary },
   check: { fontSize: 12, fontWeight: '700' },
   idSection: { marginBottom: Spacing.md },
-  idNote: { fontSize: FontSize.xs, color: Colors.textMuted, marginTop: -Spacing.sm + 2, fontStyle: 'italic' },
+  idNote: { ...TypeScale.caption, color: Colors.textMuted, marginTop: -Spacing.sm + 2, fontStyle: 'italic' },
 });

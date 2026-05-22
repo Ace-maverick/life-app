@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../theme';
+import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import Button from '../../components/Button';
 import ScreenHeader from '../../components/ScreenHeader';
 import { CATEGORIES, ServiceCategory, Subcategory, JobType } from '../../data/services';
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   progressFill: { height: 3, backgroundColor: Colors.posterPrimary },
   scroll: { flex: 1 },
   scrollContent: { padding: Spacing.lg, paddingBottom: 16 },
-  stepHeading: { fontSize: FontSize.xl, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.lg },
+  stepHeading: { ...TypeScale.titleLg, fontWeight: '700', color: Colors.textPrimary, marginBottom: Spacing.lg },
   categoryGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   catCard: {
     width: '47%',
@@ -325,10 +325,10 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   catIcon: { width: 56, height: 56, borderRadius: Radius.lg, alignItems: 'center', justifyContent: 'center', marginBottom: Spacing.sm },
-  catName: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textPrimary, textAlign: 'center' },
+  catName: { ...TypeScale.body, fontWeight: '600', color: Colors.textPrimary, textAlign: 'center' },
   checkMark: { position: 'absolute', top: 8, right: 8, width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   checkText: { color: Colors.white, fontSize: 10, fontWeight: '700' },
-  fieldLabel: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textSecondary, marginBottom: Spacing.xs, textTransform: 'uppercase', letterSpacing: 0.6 },
+  fieldLabel: { ...TypeScale.body, fontWeight: '600', color: Colors.textSecondary, marginBottom: Spacing.xs, textTransform: 'uppercase', letterSpacing: 0.6 },
   subRow: { marginHorizontal: -Spacing.lg, paddingHorizontal: Spacing.lg, marginBottom: Spacing.md },
   chip: {
     paddingHorizontal: 14,
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginRight: Spacing.sm,
   },
-  chipText: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textSecondary },
+  chipText: { ...TypeScale.body, fontWeight: '600', color: Colors.textSecondary },
   jobRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -353,8 +353,8 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   jobInfo: { flex: 1 },
-  jobName: { fontSize: FontSize.base, fontWeight: '600', color: Colors.textPrimary },
-  jobPrice: { fontSize: FontSize.sm, color: Colors.posterPrimary, fontWeight: '600', marginTop: 3 },
+  jobName: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
+  jobPrice: { ...TypeScale.body, color: Colors.posterPrimary, fontWeight: '600', marginTop: 3 },
   radioOuter: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, borderColor: Colors.border, alignItems: 'center', justifyContent: 'center' },
   radioInner: { width: 10, height: 10, borderRadius: 5 },
   urgencyRow: { flexDirection: 'row', gap: Spacing.sm },
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
-  urgencyText: { fontSize: FontSize.sm, fontWeight: '600', color: Colors.textSecondary },
+  urgencyText: { ...TypeScale.body, fontWeight: '600', color: Colors.textSecondary },
   textInput: {
     backgroundColor: Colors.white,
     borderWidth: 1.5,
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: 13,
-    fontSize: FontSize.base,
+    ...TypeScale.bodyLg,
     color: Colors.textPrimary,
     marginBottom: Spacing.md,
     ...Shadow.sm,
@@ -390,12 +390,12 @@ const styles = StyleSheet.create({
     ...Shadow.md,
   },
   reviewRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: Colors.borderLight },
-  reviewLabel: { fontSize: FontSize.sm, color: Colors.textMuted, fontWeight: '500' },
-  reviewValue: { fontSize: FontSize.sm, color: Colors.textPrimary, fontWeight: '600', flex: 1, textAlign: 'right' },
+  reviewLabel: { ...TypeScale.body, color: Colors.textMuted, fontWeight: '500' },
+  reviewValue: { ...TypeScale.body, color: Colors.textPrimary, fontWeight: '600', flex: 1, textAlign: 'right' },
   reviewTotal: { borderBottomWidth: 0, paddingTop: 12, marginTop: 4 },
-  reviewTotalLabel: { fontSize: FontSize.md, fontWeight: '700', color: Colors.textPrimary },
-  reviewTotalValue: { fontSize: FontSize.xl, fontWeight: '800', color: Colors.posterPrimary },
+  reviewTotalLabel: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
+  reviewTotalValue: { ...TypeScale.titleLg, fontWeight: '800', color: Colors.posterPrimary },
   reviewBreakdown: { marginTop: 4 },
-  breakdownText: { fontSize: FontSize.xs, color: Colors.textMuted, textAlign: 'right' },
+  breakdownText: { ...TypeScale.caption, color: Colors.textMuted, textAlign: 'right' },
   footer: { padding: Spacing.md, backgroundColor: Colors.white, borderTopWidth: 1, borderTopColor: Colors.border },
 });
