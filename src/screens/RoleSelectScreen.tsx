@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Colors, Spacing, Radius, TypeScale, Shadow } from '../theme';
 import { RootStackParams } from '../navigation';
+import LifeLogo from '../components/LifeLogo';
 
 type Nav = NativeStackNavigationProp<RootStackParams>;
 
@@ -62,10 +63,8 @@ export default function RoleSelectScreen() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
-          <View style={styles.logoMark}>
-            <Text style={styles.logoLetter}>L</Text>
-          </View>
-          <Text style={styles.appName}>Life</Text>
+          {/* Official Life wordmark — white on dark background */}
+          <LifeLogo variant="blue" width={180} style={{ marginBottom: 10 }} />
           <Text style={styles.tagline}>YOUR LIFE, HANDLED.</Text>
         </View>
 
@@ -112,17 +111,6 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { paddingHorizontal: Spacing.lg, paddingBottom: 40 },
   header: { alignItems: 'center', paddingTop: Spacing.xl, paddingBottom: Spacing.lg },
-  logoMark: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-    backgroundColor: Colors.posterPrimary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  logoLetter: { color: Colors.white, fontSize: 30, fontWeight: '800' },
-  appName: { color: Colors.white, ...TypeScale.headline, fontWeight: '800', letterSpacing: -0.5 },
   tagline: { color: 'rgba(255,255,255,0.45)', ...TypeScale.caption, letterSpacing: 2.5, marginTop: 4, fontWeight: '600' },
   heading: { color: Colors.white, ...TypeScale.titleLg, fontWeight: '700', textAlign: 'center', marginTop: Spacing.md },
   subheading: { color: 'rgba(255,255,255,0.55)', ...TypeScale.bodyLg, textAlign: 'center', marginTop: 6, marginBottom: Spacing.xl },

@@ -1,9 +1,12 @@
 ﻿import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, Radius, TypeScale, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
+
+const telebirrLogo = require('../../../assets/telebirr.png');
+const cbeBirrLogo  = require('../../../assets/cbe-birr.png');
 
 export default function WalletScreen() {
   const insets = useSafeAreaInsets();
@@ -37,19 +40,35 @@ export default function WalletScreen() {
         </View>
 
         <Text style={styles.sectionTitle}>Payment methods</Text>
-        {[
-          { emoji: '📱', label: 'Telebirr', sub: 'Mobile wallet' },
-          { emoji: '🏦', label: 'CBE Birr', sub: 'Bank wallet' },
-          { emoji: '🏛️', label: 'Bank Transfer', sub: 'Direct bank' },
-        ].map(m => (
-          <View key={m.label} style={styles.methodCard}>
-            <Text style={styles.methodEmoji}>{m.emoji}</Text>
-            <View>
-              <Text style={styles.methodName}>{m.label}</Text>
-              <Text style={styles.methodSub}>{m.sub}</Text>
-            </View>
+
+        {/* Telebirr — real logo */}
+        <View style={styles.methodCard}>
+          <Image source={telebirrLogo} style={styles.methodLogo} resizeMode="contain" />
+          <View>
+            <Text style={styles.methodName}>Telebirr</Text>
+            <Text style={styles.methodSub}>Mobile wallet</Text>
           </View>
-        ))}
+        </View>
+
+        {/* CBE Birr — real logo */}
+        <View style={styles.methodCard}>
+          <Image source={cbeBirrLogo} style={styles.methodLogo} resizeMode="contain" />
+          <View>
+            <Text style={styles.methodName}>CBE Birr</Text>
+            <Text style={styles.methodSub}>Bank wallet</Text>
+          </View>
+        </View>
+
+        {/* Bank Transfer — keep generic icon */}
+        <View style={styles.methodCard}>
+          <View style={styles.methodIconBox}>
+            <Text style={{ fontSize: 22 }}>🏛️</Text>
+          </View>
+          <View>
+            <Text style={styles.methodName}>Bank Transfer</Text>
+            <Text style={styles.methodSub}>Direct bank</Text>
+          </View>
+        </View>
 
         <View style={styles.loyaltyCard}>
           <Text style={styles.loyaltyTitle}>🎁 Loyalty Program</Text>
@@ -86,7 +105,8 @@ const styles = StyleSheet.create({
   statLabel: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 4 },
   sectionTitle: { ...TypeScale.title, fontWeight: '700', color: Colors.textPrimary },
   methodCard: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: Colors.white, borderRadius: Radius.lg, padding: Spacing.md, borderWidth: 1, borderColor: Colors.border, ...Shadow.sm },
-  methodEmoji: { fontSize: 26 },
+  methodLogo: { width: 60, height: 40 },
+  methodIconBox: { width: 60, height: 40, alignItems: 'center', justifyContent: 'center' },
   methodName: { ...TypeScale.bodyLg, fontWeight: '600', color: Colors.textPrimary },
   methodSub: { ...TypeScale.caption, color: Colors.textMuted, marginTop: 2 },
   loyaltyCard: { backgroundColor: Colors.posterLight, borderRadius: Radius.xl, padding: Spacing.lg, borderWidth: 1, borderColor: Colors.posterPrimary + '30' },
